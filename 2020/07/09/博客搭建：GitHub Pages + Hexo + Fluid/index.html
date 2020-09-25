@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>博客搭建：GitHub Pages + Hexo + Fluid - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Popesaga's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+                博客搭建：GitHub Pages + Hexo + Fluid
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-07-09 16:10" pubdate>
+        2020年7月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">博客搭建：GitHub Pages + Hexo + Fluid</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年9月25日 下午
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <p>搞技术的，没有一个自己的个人博客可能说不过去。有注意到最近一些访问的博客站点是使用Hexo来搭建的，看起来效果还不错。因此尝试用 Hexo 搭建一个静态的博客站点，再存放到 GitHub Pages 上。以下介绍的一些本地安装配置，均在 macOS 下操作。</p>
+<a id="more"></a>
+<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>首先需要安装 Git 和 Node.js ，git 已经安装好了。Mac 下安装 Node.js 需要使用 Homebrew ，之前安装的 Homebrew 已经年久失修，还需要更新。顺带补充下 Homebrew 的安装与使用。</p>
+<h4 id="Homebrew-安装"><a href="#Homebrew-安装" class="headerlink" title="Homebrew 安装"></a>Homebrew 安装</h4><ul>
+<li><p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn.html">Homebrew 官方网站</a></p>
+</li>
+<li><p>安装<code>XCode</code>或者<code>Command Line Tools for Xcode</code>。Xcode可以从AppStore里下载安装，<code>Command Line Tools for Xcode</code>需要在终端中输入以下代码运行安装：</p>
+<pre><code class="hljs bash">xcode-select --install</code></pre>
+</li>
+<li><p>安装Homebrew。将以下命令粘贴至终端</p>
+<pre><code class="hljs bash">/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>&quot;</span></code></pre>
+<p>脚本会在执行前暂停，并说明将它将做什么。</p>
+<blockquote>
+<p>安装完成以后，需要运行<code>brew doctor</code>命令检测下是否有什么冲突的地方（如没有卸载<code>MacPorts</code>等等）</p>
+</blockquote>
+</li>
+<li><p>基本使用</p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 搜索包</span>
+brew search mysql
+
+<span class="hljs-comment"># 安装包</span>
+brew install mysql
+
+<span class="hljs-comment"># 查看包信息，比如目前的版本，依赖，安装后注意事项等</span>
+brew info mysql
+
+<span class="hljs-comment"># 卸载包</span>
+brew uninstall wget
+
+<span class="hljs-comment"># 显示已安装的包</span>
+brew list
+
+<span class="hljs-comment"># 查看brew的帮助</span>
+brew –<span class="hljs-built_in">help</span>
+
+<span class="hljs-comment"># 更新， 这会更新 Homebrew 自己</span>
+brew update
+
+<span class="hljs-comment"># 检查过时（是否有新版本），这会列出所有安装的包里，哪些可以升级</span>
+brew outdated
+brew outdated mysql
+
+<span class="hljs-comment"># 升级所有可以升级的软件们</span>
+brew upgrade
+brew upgrade mysql
+
+<span class="hljs-comment"># 清理不需要的版本极其安装包缓存</span>
+brew cleanup
+brew cleanup mysql</code></pre>
+</li>
+<li><p>brew update 时遇到的一些问题</p>
+<p>因为网络原因，brew update 会遇到执行出错的情况。</p>
+<ul>
+<li><p>下载失败</p>
+<p>解决方案，使用国内镜像。有阿里巴巴、中科大、清华等可选。但是在公司折腾了前两个都不行，换了环境之后才下载成功。归根结底可能是公司网络环境的原因，因此替换镜像的方法仅做参考。</p>
+<p>Zsh 终端配置：</p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 替换brew.git:</span>
+<span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo)</span>&quot;</span>
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+<span class="hljs-comment"># 替换homebrew-core.git:</span>
+<span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span>
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+<span class="hljs-comment"># 替换homebrew-bottles:</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#x27;</span> &gt;&gt; ~/.zshrc
+<span class="hljs-built_in">source</span> ~/.zshrc
+<span class="hljs-comment"># 应用生效</span>
+brew update
+
+<span class="hljs-comment">#恢复默认配置</span>
+<span class="hljs-comment"># 重置brew.git:</span>
+<span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo)</span>&quot;</span>
+git remote set-url origin https://github.com/Homebrew/brew.git
+<span class="hljs-comment"># 重置homebrew-core.git:</span>
+<span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span>
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+
+<span class="hljs-comment">#删掉 HOMEBREW_BOTTLE_DOMAIN 环境变量，打开~/.zshrc，找到 HOMEBREW_BOTTLE_DOMAIN 这行并删除</span>
+<span class="hljs-built_in">source</span> ~/.zshrc</code></pre>
+</li>
+<li><p>“Checksum mismatch”</p>
+<p>解决方案，删除 `Archive:` 后面路径下的文件，然后再重新 update 。</p>
+<pre><code class="hljs bash">rm -rf /Users/aici/Library/Caches/Homebrew/portable-ruby--2.6.3.mavericks.bottle.tar.gz</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h4><ul>
+<li><p>安装 Node.js</p>
+<pre><code class="hljs bash">brew install node</code></pre>
+</li>
+<li><p>版本验证</p>
+<pre><code class="hljs bash"><span class="hljs-comment">#出现版本号即说明安装成功</span>
+node -v
+npm -v</code></pre>
+</li>
+<li><p>更换 npm 源</p>
+<pre><code class="hljs bash">npm install -g cnpm --registry=<span class="hljs-string">&quot;https://registry.npm.taobao.org&quot;</span>
+<span class="hljs-comment">#出现结果即可证明更换成功</span>
+cnpm</code></pre>
+</li>
+</ul>
+<h3 id="Hexo-基础"><a href="#Hexo-基础" class="headerlink" title="Hexo 基础"></a>Hexo 基础</h3><ul>
+<li><p>安装</p>
+<pre><code class="hljs bash"><span class="hljs-comment">#全局安装，局部安装目前看没必要</span>
+npm install -g hexo-cli</code></pre>
+</li>
+<li><p>创建文件夹</p>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/<span class="hljs-built_in">local</span>
+mkdir hexo</code></pre>
+</li>
+<li><p>初始化</p>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/<span class="hljs-built_in">local</span>/hexo
+hexo init</code></pre>
+</li>
+<li><p>启动服务，打开 <a target="_blank" rel="noopener" href="https://www.feihua.xyz/http://localhost:4000">localhost:4000</a> 即可看到 hexo 博客</p>
+<pre><code class="hljs bash">hexo s</code></pre>
+</li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><h4 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h4><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></p>
+<p>看起来功能完全覆盖了 Fluid，风格也是和 Fluid 类似的。配置文档太多了加上第一眼看到的是 Fluid，就放弃这个了。 </p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a></p>
+<p>先看到这个在看到的 ButterFly，功能看起来不如 ButterFly 丰富，不过第一眼印象还是更喜欢这个。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Shen-Yu/hexo-theme-ayer">Ayer</a></p>
+<p>一个简洁也很漂亮的主题，也是让人纠结的选择。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/tufu9441/maupassant-hexo">Maupassant</a></p>
+<p>非常简洁的主题，不想用 NexT 的可以考虑试一试。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">NexT</a></p>
+<p>几乎是见的最多的主题，我心中 Hexo 博客默认的样子。功能很多，样式也很全面，几乎是不会出错的选择。</p>
+</li>
+</ul>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>完成的配置指南参见：<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">Fluid配置指南</a>。下面仅列出一些关键配置。</p>
+<h5 id="获取最新版本"><a href="#获取最新版本" class="headerlink" title="获取最新版本"></a>获取最新版本</h5><p>请优先下载 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid/releases">最新 release 版本</a>，master 分支无法保证稳定。</p>
+<p>下载后解压到 themes 目录下并重命名为 <code>fluid</code>。</p>
+<h5 id="必要的配置"><a href="#必要的配置" class="headerlink" title="必要的配置"></a>必要的配置</h5><p>必须如下修改博客目录下的 <code>_config.yml</code>：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">theme:</span> <span class="hljs-string">fluid</span>  <span class="hljs-comment"># 指定主题</span>
+
+<span class="hljs-attr">language:</span> <span class="hljs-string">zh-CN</span>  <span class="hljs-comment"># 指定语言，可不改</span></code></pre>
+<h5 id="创建「关于页」"><a href="#创建「关于页」" class="headerlink" title="创建「关于页」"></a>创建「关于页」</h5><p>首次使用主题的「关于页」需要手动创建：</p>
+<pre><code class="hljs bash">$ hexo new page about</code></pre>
+<p>创建成功后修改 <code>/source/about/index.md</code>，添加 <code>layout</code> 属性。</p>
+<p>修改后的文件示例如下：</p>
+<pre><code class="hljs yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">about</span>
+<span class="hljs-attr">date:</span> <span class="hljs-number">2020-07-20 10:55:54</span>
+<span class="hljs-attr">layout:</span> <span class="hljs-string">about</span>
+<span class="hljs-meta">---</span>
+
+<span class="hljs-comment"># 这里可以写正文</span>
+<span class="hljs-string">支持</span> <span class="hljs-string">Markdown,</span> <span class="hljs-string">HTML</span></code></pre>
+<h5 id="覆盖配置"><a href="#覆盖配置" class="headerlink" title="覆盖配置"></a>覆盖配置</h5><p><strong>该功能可实现平滑升级主题，推荐所有人学习使用</strong>。</p>
+<p>覆盖配置可以使<strong>主题配置</strong>放置在 fluid 目录之外，避免在更新主题时丢失自定义的配置。</p>
+<p>使用该功能必须保证 Hexo 版本不低于 3.0，因为该功能利用了 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/data-files.html">Hexo 数据文件</a> 功能。</p>
+<p>使用方式：</p>
+<ol>
+<li>进入博客目录的 source 目录下（不是主题目录的 source），创建 <code>_data</code> 目录（和 <code>_post</code> 目录同级）；</li>
+<li>在 <code>_data</code> 目录下创建 <code>fluid_config.yml</code> 文件，将 <code>/theme/fluid/_config.yml</code> 中全部配置（或部分配置）复制到 <code>fluid_config.yml</code> 中；</li>
+<li>以后配置都在 <code>fluid_config.yml</code> 中修改，配置会在 <code>hexo g</code> 时自动覆盖。</li>
+</ol>
+<p>TIP</p>
+<ul>
+<li>也可以只覆盖部分配置，但注意只要存在于 <code>fluid_config.yml</code> 的配置都是高优先级，修改原 <code>_config.yml</code> 是无效的。</li>
+<li>每次更新主题可能存在配置变更，请注意更新说明，可能需要手动对 <code>fluid_config.yml</code> 同步修改。</li>
+<li>想查看覆盖配置有没有生效，可以通过 <code>hexo g --debug</code> 查看命令行输出。</li>
+</ul>
+<p>如果想将某些配置覆盖为空，注意不要把主键删掉，不然是无法覆盖的，比如：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">about:</span>
+  <span class="hljs-attr">icons:</span>  <span class="hljs-comment"># 不要把 icon 注释掉，否则无法覆盖配置</span>
+    <span class="hljs-comment"># - &#123; class: &#x27;iconfont icon-github-fill&#x27;, link: &#x27;https://github.com&#x27; &#125;</span>
+    <span class="hljs-comment"># - &#123; class: &#x27;iconfont icon-wechat-fill&#x27;, qrcode: &#x27;/img/favicon.png&#x27; &#125;</span></code></pre>
+<h5 id="博客标题"><a href="#博客标题" class="headerlink" title="博客标题"></a>博客标题</h5><p>页面左上角的博客标题，默认使用<strong>博客配置</strong>中的 <code>title</code>，这个配置同时控制着网页在浏览器标签中的标题。</p>
+<p>如需单独区别设置，可在<strong>主题配置</strong>中设置：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">navbar:</span>
+  <span class="hljs-attr">blog_title:</span> <span class="hljs-string">博客标题</span></code></pre>
+<h5 id="统计-PV-与-UV"><a href="#统计-PV-与-UV" class="headerlink" title="统计 PV 与 UV"></a>统计 PV 与 UV</h5><p>页脚可以展示 PV 与 UV 统计数据，目前支持两种数据来源：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/">LeanCloud</a> 与 <a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info/">不蒜子</a>。此处使用 LeanClound，需要注册后填写相关配置才生效。</p>
+<ul>
+<li>注册 LeanClound 账号</li>
+<li>创建应用</li>
+<li>将应用的 AppId、 AppKey 和 REST API 服务器地址粘贴到 web_analytics 下对应位置</li>
+<li>创建 Class 存储访问量等数据</li>
+<li>footer.statistics.source 填写 leancloud</li>
+</ul>
+<h5 id="首页-Slogan（打字机）"><a href="#首页-Slogan（打字机）" class="headerlink" title="首页 Slogan（打字机）"></a>首页 Slogan（打字机）</h5><p>首页大图中的打字机文字，可在<strong>主题配置</strong>中设定是否开启：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">index:</span>
+  <span class="hljs-attr">slogan:</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">text:</span> <span class="hljs-string">这是一条</span> <span class="hljs-string">Slogan</span></code></pre>
+<p>如果 <code>text</code> 为空则按<strong>博客配置</strong>的 <code>subtitle</code> 显示。</p>
+<p>相关的打字机动效设置在：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">fun_features:</span>
+  <span class="hljs-attr">typing:</span> <span class="hljs-comment"># 为 subtitle 添加打字机效果</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">typeSpeed:</span> <span class="hljs-number">70</span> <span class="hljs-comment"># 打印速度</span>
+    <span class="hljs-attr">cursorChar:</span> <span class="hljs-string">&quot;_&quot;</span> <span class="hljs-comment"># 游标字符</span>
+    <span class="hljs-attr">loop:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否循环播放效果</span></code></pre>
+<p>并不是很喜欢打字效果，直接关闭了。</p>
+<h5 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h5><p>开关自动摘要（默认开启）：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">index:</span>
+  <span class="hljs-attr">auto_excerpt:</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span></code></pre>
+<p>若要手动指定摘要，使用 <code>&lt;!-- more --&gt;</code> MD文档里划分，如：</p>
+<pre><code class="hljs markdown">这里是摘要
+<span class="xml"><span class="hljs-comment">&lt;!-- more --&gt;</span></span>
+这里是正文</code></pre>
+<p>按照配置文档里使用 <code>&lt;!-- more --&gt;</code> 后会报错，并且摘要未生效。如果配置 Front-matter 可以解决。未配置 Front-matter 时，也可以通过添加 —- 水平线解决，没有查到相关文档的解释。</p>
+<p>或者在 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">Front-matter</a> 里设置 <code>excerpt</code> 字段，如：</p>
+<pre><code class="hljs yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">这是标题</span>
+<span class="hljs-attr">excerpt:</span> <span class="hljs-string">这是摘要</span>
+<span class="hljs-meta">---</span></code></pre>
+<blockquote>
+<p>TIP</p>
+<p>优先级: 手动摘要 &gt; 自动摘要</p>
+<p>如果关闭自动摘要，并且没有设置手动摘要，摘要区域空白</p>
+<p>无论哪种摘要都最多显示 3 行，当屏幕宽度不足时会隐藏部分摘要。</p>
+</blockquote>
+<h5 id="文章内容图片"><a href="#文章内容图片" class="headerlink" title="文章内容图片"></a>文章内容图片</h5><p>本地图片存放位置同上。</p>
+<pre><code class="hljs markdown">![](/img/example.jpg)</code></pre>
+<h5 id="日期-字数-阅读时长-阅读数"><a href="#日期-字数-阅读时长-阅读数" class="headerlink" title="日期/字数/阅读时长/阅读数"></a>日期/字数/阅读时长/阅读数</h5><p>显示在文章页大标题下的文章信息，除了阅读次数，其他功能都是默认开启的。</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">post:</span>
+  <span class="hljs-attr">meta:</span>
+    <span class="hljs-attr">date:</span>  <span class="hljs-comment"># 日期</span>
+      <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">format:</span> <span class="hljs-string">&quot;dddd, MMMM Do YYYY, h:mm a&quot;</span>  <span class="hljs-comment"># 格式参照 ISO-8601 日期格式化</span>
+    <span class="hljs-attr">wordcount:</span>  <span class="hljs-comment"># 字数统计</span>
+      <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">format:</span> <span class="hljs-string">&quot;&#123;&#125; 字&quot;</span>  <span class="hljs-comment"># 显示的文本，&#123;&#125;是数字的占位符（必须包含)，下同</span>
+    <span class="hljs-attr">min2read:</span>  <span class="hljs-comment"># 阅读时间</span>
+      <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">format:</span> <span class="hljs-string">&quot;&#123;&#125; 分钟&quot;</span>
+    <span class="hljs-attr">views:</span>  <span class="hljs-comment"># 阅读次数</span>
+      <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span>
+      <span class="hljs-attr">source:</span> <span class="hljs-string">&quot;leancloud&quot;</span>  <span class="hljs-comment"># 统计数据来源，可选：leancloud | busuanzi   注意不蒜子会间歇抽风</span>
+      <span class="hljs-attr">format:</span> <span class="hljs-string">&quot;&#123;&#125; 次&quot;</span></code></pre>
+<h5 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h5><p>开启评论需要在<strong>主题配置</strong>中开启并指定评论模块：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">post:</span>
+  <span class="hljs-attr">comments:</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span></code></pre>
+<p>比较推荐的主要是两个：utterances 和 valine。此处使用valine，据说配置方便又简约，基于 Leancloud 的无后端设计。</p>
+<ul>
+<li>请先<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/login.html#/signin">登录</a>或<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/login.html#/signup">注册</a> <code>LeanCloud</code>, 进入<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/applist.html#/apps">控制台</a>后点击左下角<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/applist.html#/newapp">创建应用</a></li>
+<li>应用创建好以后，进入刚刚创建的应用，选择左下角的<code>设置</code>&gt;<code>应用Key</code>，然后就能看到你的<code>APP ID</code>和<code>APP Key</code>了</li>
+<li>创建 Class 存储评论数据</li>
+<li>将应用的 AppId、 AppKey 和 REST API 服务器地址粘贴到 valine 下对应位置</li>
+<li>其他配置视情况需要修改</li>
+</ul>
+<h5 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h5><p>主题内置了脚注语法支持，可以在文章末尾自动生成带有锚点的脚注，该功能在<strong>主题配置</strong>中默认开启：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">post:</span>
+  <span class="hljs-attr">footnote:</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">header:</span> <span class="hljs-string">&#x27;&#x27;</span></code></pre>
+<p>脚注语法如下：</p>
+<pre><code class="hljs markdown">这是一句话[^1]
+[<span class="hljs-symbol">^1</span>]: <span class="hljs-link">这是对应的脚注</span></code></pre>
+<p>更优雅的使用方式，是将脚注写在文末，比如：</p>
+<pre><code class="hljs markdown">正文
+
+<span class="hljs-section">## 参考</span>
+[<span class="hljs-symbol">^1</span>]: <span class="hljs-link">参考资料1</span>
+[<span class="hljs-symbol">^2</span>]: <span class="hljs-link">参考资料2</span></code></pre>
+<p>当然你也可以通过修改上方配置项 <code>header</code> 来自动加入节标题，如下所示：</p>
+<pre><code class="hljs yaml"><span class="hljs-attr">post:</span>
+  <span class="hljs-attr">footnote:</span>
+    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">header:</span> <span class="hljs-string">&#x27;&lt;h2&gt;参考&lt;/h2&gt;&#x27;</span>  <span class="hljs-comment"># 等同于手动写 `## 参考`</span></code></pre>
+<h5 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h5><p>只有文章支持分类和标签，您可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 <code>Foo, Bar</code> 不等于 <code>Bar, Foo</code>；而标签没有顺序和层次。</p>
+<pre><code class="hljs subunit">categories:
+- Diary
+<span class="hljs-keyword">tags:</span>
+- PS3
+- Games</code></pre>
+<blockquote>
+<p>分类方法的分歧</p>
+<p>如果您有过使用 WordPress 的经验，就很容易误解 Hexo 的分类方式。WordPress 支持对一篇文章设置多个分类，而且这些分类可以是同级的，也可以是父子分类。但是 Hexo 不支持指定多个同级分类。下面的指定方法：</p>
+<pre><code class="hljs markdown">categories:
+<span class="hljs-bullet">  -</span> Diary
+<span class="hljs-bullet">  -</span> Life</code></pre>
+<p>会使分类<code>Life</code>成为<code>Diary</code>的子分类，而不是并列分类。因此，有必要为您的文章选择尽可能准确的分类。</p>
+<p>如果你需要为文章添加多个分类，可以尝试以下 list 中的方法。</p>
+<pre><code class="hljs asciidoc">categories:
+<span class="hljs-bullet">- </span>[Diary, PlayStation]
+<span class="hljs-bullet">- </span>[Diary, Games]
+<span class="hljs-bullet">- </span>[Life]</code></pre>
+<p>此时这篇文章同时包括三个分类： <code>PlayStation</code> 和 <code>Games</code> 分别都是父分类 <code>Diary</code> 的子分类，同时 <code>Life</code> 是一个没有子分类的分类。</p>
+</blockquote>
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><h5 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h5><p>在github上创建博客的仓库，创建仓库地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/new">https://github.com/new</a>。如果你希望你的站点能通过 &lt;你的 GitHub 用户名&gt;.github.io 域名访问，你的 repository 应该直接命名为 &lt;你的 GitHub 用户名&gt;.github.io。</p>
+<h5 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h5><ul>
+<li><p>修改博客目录下的 <code>_config.yml</code></p>
+<pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span>
+    <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/&lt;你的</span> <span class="hljs-string">GitHub</span> <span class="hljs-string">用户名&gt;/&lt;你的</span> <span class="hljs-string">GitHub</span> <span class="hljs-string">用户名&gt;.github.io</span>
+  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span></code></pre>
+<blockquote>
+<p>TIP</p>
+<p>官方教程有坑！</p>
+<p>- <code>github.com/username/username.github.io</code> 这样的仓库用<code>master</code>分支 </p>
+<p>- <code>github.com/username/cengjingbeikengguo</code> 这样的用<code>gh-pages</code></p>
+</blockquote>
+</li>
+<li><p>安装 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>，使用 cnpm</p>
+<pre><code class="hljs sql">$ cnpm <span class="hljs-keyword">install</span> hexo-deployer-git <span class="hljs-comment">--save</span></code></pre>
+</li>
+<li><p>生成站点文件并推送至远程库。 hexo clean &amp;&amp; hexo deploy</p>
+<pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo deploy</code></pre>
+</li>
+<li><p>登入 Github，请在库设置（Repository Settings）中将默认分支设置为 _config.yml 配置中的分支名称。稍等片刻，您的站点就会显示在您的Github Pages中。</p>
+</li>
+</ul>
+<h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><h4 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a>创建新文章</h4><pre><code class="hljs bash"><span class="hljs-comment"># 创建新文章</span>
+hexo new <span class="hljs-string">&quot;xxx xxx xxx&quot;</span>
+
+<span class="hljs-comment"># 测试</span>
+hexo s
+
+<span class="hljs-comment"># 生成站点并部署</span>
+hexo d -g</code></pre>
+<h3 id="更新-hexo-及插件"><a href="#更新-hexo-及插件" class="headerlink" title="更新 hexo 及插件"></a>更新 <code>hexo</code> 及插件</h3><p>更新 <code>hexo</code></p>
+<pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> update -g hexo</code></pre>
+<p>更新插件</p>
+<pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> update</code></pre>
+<h3 id="更换电脑"><a href="#更换电脑" class="headerlink" title="更换电脑"></a>更换电脑</h3><ul>
+<li>使用 git 同步</li>
+<li>使用坚果云选择性同步这几个文件夹。然后在另一台电脑上搭建博客环境、安装相关插件后。同步这些文件，然后重新生成、部署站点。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/GitHub/">GitHub</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Fluid/">Fluid</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Homebrew/">Homebrew</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">写作工具配置：Typora + PicGo + GitHub 图床</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "0AH8W2EkcXzegHbTGIcrsCJC-gzGzoHsz",
+          app_key: "TW04bm43OXni1yF6MOJ3J8WB",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "https://mcprsmty.lc-cn-n1-shared.com",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/07/09/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%9AGitHub%20Pages%20+%20Hexo%20+%20Fluid/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '0AH8W2EkcXzegHbTGIcrsCJC-gzGzoHsz'
+    var app_key = 'TW04bm43OXni1yF6MOJ3J8WB'
+    var server_url = 'https://0ah8w2ek.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 6,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

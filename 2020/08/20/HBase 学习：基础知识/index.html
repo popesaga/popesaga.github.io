@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>HBase 学习：基础知识 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Popesaga's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+                HBase 学习：基础知识
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-08-20 14:17" pubdate>
+        2020年8月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">HBase 学习：基础知识</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年9月25日 下午
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <p>本文主要介绍 HBase 的设计目标、相关生态、数据模型和系统架构。</p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>HBase 是高可靠性、高性能、面向列、可伸缩、可实时读写的分布式数据库，最初是 Google Bigtable 论文的开源实现。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/BigTable和HBase对照.png" srcset="/img/loading.gif" alt="image-20200901155317587"></p>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ul>
+<li><p>Scalability：HBase底层基于HDFS，支持扩展，并且可以随时添加或者减少节点</p>
+</li>
+<li><p>High Performance：底层的LSM-Tree数据结构，使得HBase具备非常高的写入性能。RowKey有序排列、主键索引和缓存机制使得HBase具备一定的随机读写性能。</p>
+</li>
+<li><p>High Availability：基于zookeeper的协调服务，能够保证服务的高可用行。HBase使用WAL和replication机制，前者保证数据写入时不会因为集群异常而导致写入数据的丢失，后者保证集群出现严重问题时，数据不会发生丢失和损坏。</p>
+</li>
+</ul>
+<h3 id="相关生态"><a href="#相关生态" class="headerlink" title="相关生态"></a>相关生态</h3><p>对于 HBase 不适用的场景，可以借助于强大的生态圈，架设Phoenix、Spark或者其他第三方组件，就可以有效地扩展 HBase 的使用场景。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/HBase生态.png" srcset="/img/loading.gif" alt="HBase生态"></p>
+<ul>
+<li>Spark：基于内存计算的大数据计算引擎，提供海量数据的离线分析计算能力和实时流计算能力</li>
+<li>Phoenix：关系型数据库引擎，提供操作 HBase 的 SQL 接口，支持聚合运算，支持具有完整 ACID 语义的跨行及跨表事务，支持二级索引</li>
+<li>OpenTSDB：时序数据存储，提供基于 Metrics、时间和标签的一些组合维度查询与聚合能力</li>
+<li>GeoMesa：时空数据存储，提供基于时间和空间范围的索引能力</li>
+<li>JanusGraph：图数据存储，提供基于属性、关系的图索引能力</li>
+</ul>
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><ul>
+<li><p>Table（表格）</p>
+<ul>
+<li>A Bigtable is a sparse, distributed, persistent multi-dimensional sorted map.</li>
+<li>一个表是一个包含海量 Key-Value 对的 Map，数据是持久化存储的。</li>
+<li>这个大的 Map 需要支持多个分区来实现分布式。</li>
+<li>这个 Map 按照 Key 进行排序，这个 Key 是一个由 {Row Key, Column Key, Timestamp} 组成的多维结构。</li>
+<li>每一行列的组成并不是严格的结构，而是稀疏的，也就是说，行与行可以由不同的列组成</li>
+</ul>
+</li>
+<li><p>Row（行）</p>
+<ul>
+<li>每一行数据都拥有一个唯一的 RowKey，可以将 Rowkey 理解为主键。</li>
+<li>RowKey 是一个 Byte String，通常长度在 10～100Bytes 左右，建议不超过 4KB，最大为 64KB。一行中包含一个或多个列。</li>
+<li>Bigtable支持Row级别操作的原子性。</li>
+<li>所有的数据按照 Row Key 的字典顺序进行排序。</li>
+<li>数据的存储目标是相近的数据存储到一起。一个常用的行的 key 的格式是网站域名。如果你的行的 key 是域名，你应该将域名进行反转 (org.apache.www, org.apache.mail, org.apache.jira) 再存储。这样的话，所有 Apache 域名将会存储在一起，好过基于子域名的首字母分散在各处。</li>
+</ul>
+</li>
+<li><p>Column（列）</p>
+<ul>
+<li>HBase 中列的组成结构为 Family:Qualifier</li>
+</ul>
+</li>
+<li><p>Column Family（列族）</p>
+<ul>
+<li>权限控制的最小单元。</li>
+<li>HBase 把同一列族里面的数据存储在同一目录下，由几个文件保存。</li>
+<li>一个 Column Family 通常是一个或多个相同类型的列的集合，这样在数据压缩率上可以获取更好的效果。</li>
+<li>Column Families 的数量通常不建议过多，通常小于5个。</li>
+<li>每一个列族拥有一系列的存储属性，例如值是否缓存在内存中，数据是否要压缩或者他的行key是否要加密等等</li>
+<li>表格中的每一行拥有相同的列族，尽管一个给定的行可能没有存储任何数据在一个给定的列族中。</li>
+</ul>
+</li>
+<li><p>Column Qualifier（列的限定符）</p>
+<ul>
+<li>列的限定符是列族中数据的索引。</li>
+<li>例如给定了一个列族 content，那么限定符可能是 content:html，也可以是 content:pdf。</li>
+<li>HBase 表中的每个列都归属于某个列族，列族必须作为表模式 (schema) 定义的一部分预先给出。如 create ‘test’, ‘course’。</li>
+<li>列名以列族作为前缀，每个“列族”都可以有多个列成员 (column)。如 course:math, course:english，新的列族成员（列）可以随后按需、动态加入。</li>
+</ul>
+</li>
+<li>Cell（单元）<ul>
+<li>由行和列的坐标交叉决定。</li>
+<li>单元格是有版本的。</li>
+<li>单元格的内容是未解析的字节数组。</li>
+<li>单元格是由行、列族、列限定符、值和代表值版本的时间戳组成的（{row key， column( = +)， version} ）唯一确定单元格。</li>
+<li>cell中的数据是没有类型的，全部是字节码形式存储。</li>
+</ul>
+</li>
+<li>Timestamp（时间戳）<ul>
+<li>时间戳是写在值旁边的一个用于区分值的版本的数据。</li>
+<li>默认情况下，时间戳表示的是当数据写入时RegionSever的时间点，但你也可以在写入数据时指定一个不同的时间戳。</li>
+<li>在HBase每个cell存储单元对同一份数据有多个版本，根据唯一的时间戳来区分每个版本之间的差异，不同版本的数据按照时间倒序排序，最新的数据版本排在最前面。</li>
+<li>时间戳的类型是 64 位整型。时间戳可以由 HBase（在数据写入时自动）赋值，此时时间戳是精确到毫秒的当前系统时间。时间戳也可以由客户显式赋值，如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。</li>
+</ul>
+</li>
+<li>Region（域）<ul>
+<li>BigTable中称为Tablet</li>
+<li>HBase自动把表水平划分成多个区域（Region），每个Region会保存一个表里面某段连续的数据。</li>
+<li>Region是数据分布与负载均衡的基本单元。</li>
+<li>每个表一开始只有一个Region，一个Region增长到一定大小之后可以自动分裂成两个Region。</li>
+<li>多个Region可以合并成一个大的Region。</li>
+</ul>
+</li>
+</ul>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><h4 id="逻辑视图"><a href="#逻辑视图" class="headerlink" title="逻辑视图"></a>逻辑视图</h4><p>一个名为 webable 的表格，表格中有两行（com.cnn.www 和 com.example.www）和三个列族（contents, anchor 和 people）。在这个例子当中，第一行（com.cnn.www）中anchor包含两列（anchor:cssnsi.com， anchor:my.look.ca）和 content 包含一列（contents:html）。这个例子中 com.cnn.www 拥有5个版本而 com.example.www 有一个版本。contents:html 列中包含给定网页的整个 HTML。anchor 限定符包含能够表示行的站点以及链接中文本。people 列族表示跟站点有关的人。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/HBase逻辑视图.png" srcset="/img/loading.gif" alt="HBase逻辑视图"></p>
+<h4 id="物理视图"><a href="#物理视图" class="headerlink" title="物理视图"></a>物理视图</h4><p>尽管一个概念层次的表格可能看起来是由一些列稀疏的行组成，但他们是通过列族来存储的。一个新建的限定符 （column_family:column_qualifier）可以随时地添加到已存在的列族中。</p>
+<p>列族 anchor 的所有数据存储在一起：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/列族存储示例1.png" srcset="/img/loading.gif" alt="列族存储示例1"></p>
+<p>列族 contents 的所有数据存储在一起：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20200901162726.png" srcset="/img/loading.gif" alt="列族存储示例2"></p>
+<p>在HBase中，表格中的单元如果是空将不占用空间或者事实上不存在。因此对于返回时间戳为 t8 的 contents:html 的值的请求，结果为空。同样的，一个返回时间戳为 t9 的anchor:my.look.ca 的值的请求，结果也为空。如果没有指定时间戳的话，会返回特定列的最新值。对有多个版本的列，优先返回最新的值，因为时间戳是按照递减顺序存储的。因此对于一个返回 com.cnn.www 里面所有的列的值并且没有指定时间戳的请求，返回的结果会是时间戳为 t6 的contents:html 的值、时间戳 t9 的 anchor:cnnsi.com 的值和时间戳 t8 的 anchor:my.look.ca。</p>
+<h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/HBase体系结构.png" srcset="/img/loading.gif" alt="HBase体系结构"></p>
+<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><ul>
+<li>包含访问 HBase 的接口并维护 cache 来加快对 HBase 的访问。</li>
+<li>HBase客户端访问数据行之前，首先需要通过元数据表定位目标数据所在RegionServer，之后才会发送请求到该RegionServer。</li>
+<li>同时这些元数据会被缓存在客户端本地，以方便之后的请求访问。</li>
+<li>如果集群RegionServer发生宕机或者执行了负载均衡等，从而导致数据分片发生迁移，客户端需要重新请求最新的元数据并缓存在本地。</li>
+</ul>
+<h4 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h4><ul>
+<li>保证任何时候，集群中只有一个工作状态的 master。</li>
+<li>存储 HBase 的 schema 和 table 元数据。</li>
+<li>存储所有 Region 的寻址入口。</li>
+<li>实时监控 RegionServer 的上线和下线信息,并实时通知 Master。</li>
+<li>通过心跳可以感知到 RegionServer 是否宕机，并在宕机后通知 Master 进行宕机处理。</li>
+<li>HBase中对一张表进行各种管理操作（比如 alter 操作）需要先加表锁，防止其他用户对同一张表进行管理操作，造成表状态不一致。和其他 RDBMS 表不同，HBase 中的表通常都是分布式存储，ZooKeeper 可以通过特定机制实现分布式表锁。</li>
+</ul>
+<h4 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h4><ul>
+<li>处理用户的各种管理请求，包括建表、修改表、权限操作、切分表、合并数据分片以及 Compaction 等。</li>
+<li>管理集群中所有 RegionServer，包括为 RegionServer 分配 region，负责 RegionServer 的负载均衡、RegionServer 的宕机恢复以及 Region 的迁移等。</li>
+<li>清理过期日志以及文件，Master 会每隔一段时间检查 HDFS 中 HLog 是否过期、HFile 是否已经被删除，并在过期之后将其删除。</li>
+</ul>
+<h4 id="RegionServer"><a href="#RegionServer" class="headerlink" title="RegionServer"></a>RegionServer</h4><ul>
+<li>主要用来响应用户的 IO 请求，是 HBase 中最核心的模块，由 WAL（HLog）、BlockCache 以及多个 Region 构成。</li>
+<li>WAL 用来保证数据写入的可靠性。</li>
+<li>BlockCache 可以将数据块缓存在内存中以提升数据读取性能。</li>
+<li>Region 是 HBase 中数据表的一个数据分片，一个 RegionServer 上通常会负责多个 Region 的数据读写。</li>
+<li>一个 Region 由多个 Store 组成，每个 Store 存放对应列簇的数据，比如一个表中有两个列簇，这个表的所有 Region 就都会包含两个 Store。</li>
+<li>每个 Store 包含一个 MemStore 和多个 HFile，用户数据写入时会将对应列簇数据写入相应的 MemStore，一旦写入数据的内存大小超过设定阈值，系统就会将 MemStore 中的数据落盘形成HFile文件。</li>
+<li>HFile 存放在 HDFS 上，是一种定制化格式的数据存储文件，方便用户进行数据读取。</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/34819650/">HBase原理与实践</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/HBase/">HBase</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/02/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HBase 学习：安装和使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A/">
+                        <span class="hidden-mobile">写作工具配置：Typora + PicGo + GitHub 图床</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "0AH8W2EkcXzegHbTGIcrsCJC-gzGzoHsz",
+          app_key: "TW04bm43OXni1yF6MOJ3J8WB",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "https://mcprsmty.lc-cn-n1-shared.com",
+        });
+      });
+    }
+    waitElementVisible('vcomments', loadValine);
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/08/20/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '0AH8W2EkcXzegHbTGIcrsCJC-gzGzoHsz'
+    var app_key = 'TW04bm43OXni1yF6MOJ3J8WB'
+    var server_url = 'https://0ah8w2ek.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 6,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
