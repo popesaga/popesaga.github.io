@@ -263,7 +263,7 @@
 </ul>
 <p>一般意义上的 Scan 操作，HBase 都没法使用 Bloom Filter 来提升扫描数据性能。因为此时 Bloom Filter 的 Key 值不确定，所以没法计算出哈希值对比。但是，在某些特定场景下，Scan操作同样可以借助 Bloom Filter 提升性能。</p>
 <p>对于 ROWCOL 类型的 Bloom Filter 来说，如果在 Scan 操作中明确指定需要扫某些列。那么在 Scan 过程中，碰到 KV 数据从一行换到新的一行时，是没法走 ROWCOL 类型 Bloom Filter 的，因为新一行的 key 值不确定；但是，如果在同一行数据内切换列时，则能通过 ROWCOL 类型 Bloom Filter 进行优化，因为 rowkey 确定，同时 column 也已知，也就是说，Bloom Filter 中的Key确定，所以可以通过ROWCOL 优化性能。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter英文维基</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter 英文维基</a></p>
 <p><a target="_blank" rel="noopener" href="https://crossoverjie.top/2018/11/26/guava/guava-bloom-filter/">如何判断一个元素在亿级数据中是否存在？</a></p>
 <p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/34819650/">HBase原理与实践</a></p>
 <p><a target="_blank" rel="noopener" href="https://coolshell.cn/articles/17225.html">CUCKOO FILTER：设计与实现（一种 Bloom Filter 的替代方案）</a></p>
