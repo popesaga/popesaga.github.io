@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.5k 字
     </span>
   
 
@@ -236,7 +236,7 @@
               </p>
             
             <div class="markdown-body" id="post-body">
-              <p>Skip List（跳表）是一种能高效实现插入、删除、查找的内存数据结构，这些操作的期望复杂度都是 $O(\log{}n)$。常用来对标 AVL tree 或红黑树等二叉查找树。与红黑树以及其他的二分查找树相比，跳跃表的优势在于实现简单，而且在并发场景下加锁粒度更小，从而可以实现更高的并发性。因此在一些热门项目中，如 Redis、LevelDB、HBase 都把跳跃表作为一种维护有序数据集合的基础数据结构。JDK 中也内置了基于 Skip List 实现的并发容器 ConcurrentSkipListMap 和 ConcurrentSkipListSet。</p>
+              <p>Skip List（跳表）是一种能高效实现插入、删除、查找的内存数据结构。常用来对标 AVL tree 或红黑树等二叉查找树。与红黑树以及其他的二分查找树相比，跳跃表的优势在于实现简单，而且在并发场景下加锁粒度更小，从而可以实现更高的并发性。因此在一些热门项目中，如 Redis、LevelDB、HBase 都把跳跃表作为一种维护有序数据集合的基础数据结构。JDK 中也内置了基于 Skip List 实现的并发容器 ConcurrentSkipListMap 和 ConcurrentSkipListSet。</p>
 <a id="more"></a>
 <h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>对于一个有序链表，如果要搜索一个数，需要从头到尾比较每个元素是否匹配，直到找到匹配的数为止，即时间复杂度是 $O(n)$。同理，插入或删除一个数并保持链表有序，需要先找到合适的插入或删除位置，再执行插入或删除，总计也是 $O(n)$ 的时间。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/image-20200924175020101.png" srcset="/img/loading.gif" alt="image-20200924175020101"></p>
