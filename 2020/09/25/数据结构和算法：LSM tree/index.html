@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>数据结构和算法：Skip List - Hexo</title>
+  <title>数据结构和算法：LSM Tree - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -157,7 +157,7 @@
           <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
-                数据结构和算法：Skip List
+                数据结构和算法：LSM Tree
               
             </span>
 
@@ -167,8 +167,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-09-02 15:42" pubdate>
-        2020年9月2日 下午
+      <time datetime="2020-09-25 17:11" pubdate>
+        2020年9月25日 下午
       </time>
     </span>
   
@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      2k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      21
        分钟
     </span>
   
@@ -227,86 +227,77 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">数据结构和算法：Skip List</h1>
+            <h1 style="display: none">数据结构和算法：LSM Tree</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月25日 下午
+                  本文最后更新于：2020年9月27日 下午
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <p>Skip List（跳表）是一种能高效实现插入、删除、查找的内存数据结构，这些操作的期望复杂度都是 $O(\log{}n)$。常用来对标 AVL tree 或红黑树等二叉查找树。与红黑树以及其他的二分查找树相比，跳跃表的优势在于实现简单，而且在并发场景下加锁粒度更小，从而可以实现更高的并发性。因此在一些热门项目中，如 Redis、LevelDB、HBase 都把跳跃表作为一种维护有序数据集合的基础数据结构。JDK 中也内置了基于 Skip List 实现的并发容器 ConcurrentSkipListMap 和 ConcurrentSkipListSet。</p>
+              <p>LSM tree全称是 Log-structured merge-tree，是一种分层，有序，面向磁盘的数据结构。其核心原理是磁盘批量顺序写比随机写性能高出很多，可以通过围绕这一原理进行设计和优化，让写性能达到最优。相较于传统的B+树，它减少了磁盘随机读取的需求，从而在一定程度上改善了数据库的写能力，当然在一定程度上牺牲了数据库的读能力。LSM tree 也是当今流行的各种 NoSQL 或 NewSQL 数据库最基础的底层数据结构，广泛使用在包括 Hbase，Cassandra，Leveldb，RocksDB，TiDB 等项目中。</p>
 <a id="more"></a>
-<h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>对于一个有序链表，如果要搜索一个数，需要从头到尾比较每个元素是否匹配，直到找到匹配的数为止，即时间复杂度是 $O(n)$。同理，插入或删除一个数并保持链表有序，需要先找到合适的插入或删除位置，再执行插入或删除，总计也是 $O(n)$ 的时间。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/image-20200924175020101.png" srcset="/img/loading.gif" alt="image-20200924175020101"></p>
-<p>如果链表在查找的时候，能够避免依次查找元素，那么查找复杂度将降低。而跳跃表就是利用这一思想，在链表之上额外存储了一些节点的索引信息，达到避免依次查找元素的目的，从而将查询复杂度优化为 $O(\log{}n)$。将查询复杂度优化之后，自然也优化了插入和删除的复杂度。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/image-20200924175049127.png" srcset="/img/loading.gif" alt="image-20200924175049127"></p>
-<p>我们新创建一个链表，它包含的元素为前一个链表的偶数个元素。这样在搜索一个元素时，我们先在上层链表进行搜索，当元素未找到时再到下层链表中搜索。我们以搜索数字 19 为例，先在上层中搜索，到达节点 17 时发现下一个节点为 21，已经大于 19，于是转到下一层搜索，找到的目标数字 19。</p>
-<p>我们知道上层的节点数目为 $n/2$，因此，有了这层索引，我们搜索的时间复杂度降为了：$O(n/2)$。同理，我们可以不断地增加层数，来减少搜索的时间。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/image-20200924175111959.png" srcset="/img/loading.gif" alt="image-20200924175111959"></p>
-<p>一般地，如果有 k 层，我们需要的搜索次数会小于 $\lceil \frac{n}{2^k} \rceil + k$，这样当层数 k 增加到 $\lceil \log_{2} n \rceil$ 时，搜索的时间复杂度就变成了 $O(\log{}n)$。其实这背后的原理和二叉搜索树或二分查找很类似，通过索引来跳过大量的节点，从而提高搜索效率。</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>跳跃表由多条分层的链表组成。</li>
-<li>每条链表中的元素都是有序的。</li>
-<li>每条链表都有两个元素：+∞（正无穷大）和-∞（负无穷大），分别表示链表的头部和尾部。</li>
-<li>上层链表元素集合是下层链表元素集合的子集。</li>
-<li>从上到下，上层链表元素集合是下层链表元素集合的子集。</li>
-<li>跳跃表的高度定义为水平链表的层数。</li>
-</ul>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><ul>
-<li>以左上角元素为起点。</li>
-<li>如果当前节点的后继节点的值小于等于待查询值，则沿着这条链表向后查询，否则，切换到当前节点的下一层链表。</li>
-<li>继续查询，直到找到待查询值或者当前节点为空。</li>
-</ul>
-<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><ul>
-<li>先搜索得到该节点，把节点和对应的所有索引节点全部删除。</li>
-<li>搜索过程中可以记录下路径，表面删除索引层节点时重复搜索。</li>
-</ul>
-<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><ul>
-<li><p>上面的示例中简单设置了上层节点和下层节点的个数是 $1:2 $，以此决定跳表的高度。</p>
-</li>
-<li><p>在实际使用中，为了便于实现，采用随机算法决定每个节点的索引层数。</p>
-</li>
-<li><p>伪代码如下：</p>
-<pre><code class="hljs c">randomLevel()
-    lvl := <span class="hljs-number">1</span>
-    -- random() that returns a random value in [<span class="hljs-number">0.</span>.<span class="hljs-number">.1</span>)
-    <span class="hljs-keyword">while</span> random() &lt; p <span class="hljs-keyword">and</span> lvl &lt; MaxLevel <span class="hljs-keyword">do</span>
-        lvl := lvl + <span class="hljs-number">1</span>
-    <span class="hljs-keyword">return</span> lvl</code></pre>
-</li>
-<li><p>上面的伪代码相当于抛硬币，如果是正面则层数加一，直到抛出反面为止。其中的 $MaxLevel$ 是防止如果运气太好，层数就会太高，而太高的层数往往并不会提供额外的性能，一般 $MaxLevel=log_{1/p}{n}$， $p=1/4$ 或者 $1/2$。</p>
-</li>
-</ul>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><p>在最坏的情况下，所有节点都没有创建索引，时间复杂度为 $O(n)$。但在平均情况下，搜索的时间复杂度却是 $O(\log{}n)$。一些严格的证明会涉及到比较复杂的概率统计学知识，以下只做简单说明。</p>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>传统的 B+ 树的缺陷就是在访问节点时涉及到了大量的磁盘随机读写，因为你无法保证节点常驻内存，尤其是当 B+ 树管理的索引量很大的时候。这导致数据库读写性能急剧下降。</p>
+<p> LSM tree 采取的做法就是通过引入多部件索引来减少磁盘随机读写的需求。在大量插入情况下我们周期性地选取两部分索引进行合并，并且把合并后的有序文件（或内存块）添加到磁盘尾部（或成为新文件），修改节点信息以保证索引树的正确和完整，并且周期性地回收失效索引。因此与其说 LSM tree 是一种树，不如说它是通过传统索引组织有序文件或内存块的一种方式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/LSM_Tree.png" srcset="/img/loading.gif" alt="LSM_Tree"></p>
+<p>LSM tree 的节点可以分为两种：</p>
 <ul>
-<li><p>一个节点落在第 $k$ 层的概率为 $p^{k-1}$。</p>
-</li>
-<li><p>一个最底层链表有 $n$ 个元素的跳跃表，总共元素个数为 $\underset{k=1}{Σ} n×p^{k-1}$，其中 $k$ 为跳跃表的高度。</p>
-<p>一个元素落在第 $k$ 层概率为 $p^{k-1}$，则第 $k$ 层插入的元素个数为 $n×p^{k-1}$，所有 $k$ 相加得到上述公式。当 $p≤ \frac{1}{2}$时，上述公式小于  $O(2n)$，所以空间复杂度为 $O(n)$。</p>
-</li>
-<li><p>跳跃表的高度为 $O(\log{}n)$。</p>
-</li>
-<li><p>跳跃表的查询时间复杂度为 $O(\log{}n)$。</p>
-<p>为了计算搜索的时间复杂度，我们可以将查找的过程倒过来，从搜索最后的节点开始，一直向左或向上，直到最顶层。如下图，在路径上的每一点，都可能有两种情况：</p>
-<ol>
-<li>节点有上一层的节点，向上。这种情况出现的概率是 $p$。</li>
-<li>节点没有上一层的节点，向左。出现的概率是 $1-p$。</li>
+<li>MemTable: 保存在内存中的部分，一般可以是红黑树、跳跃表，甚至可以是 B 树。在 HBase 中使用的是跳表，在 SQLite4 中使用的是只能追加写入的红黑树。</li>
+<li>SSTable: 保存在磁盘上的部分，一般由多个内部 KeyValue 有序的文件组成，它的 key 和 value 都是任意的字节数组，并且了提供了按指定 key 查找和指定范围的 key 区间迭代遍历的功能。SSTable 内部包含了一系列可配置大小的Block块。关于这些Block块的index存储在 SSTable 的尾部，用于帮助快速查找特定的 Block。当一个SSTable被打开的时候，index 会被加载到内存，然后根据key 在内存 index 里面进行一个二分查找，查到该 key 对应的磁盘的 offset 之后，然后去磁盘把响应的块数据读取出来。当然如果内存足够大的话，可以直接把 SSTable 直接通过 MMap 的技术映射到内存中，从而提供更快的查找。 </li>
+</ul>
+<p>写操作直接作用于 MemTable, 因此写入性能接近写内存。每层 SSTable 文件到达一定条件后，进行合并操作，然后放置到更高层。合并操作在实现上一般是策略驱动、可插件化的。</p>
+<h3 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/LSM tree读写流程.png" srcset="/img/loading.gif" alt="LSM tree读写流程"></p>
+<h4 id="写流程"><a href="#写流程" class="headerlink" title="写流程"></a>写流程</h4><ol>
+<li>当收到一个写请求时，会先把该条数据记录在 WAL（Write-ahead logging）里面，用作故障恢复。</li>
+<li>当写完 WAL 后，会把该条数据写入内存的 MemTable 里面（删除操作也通过写入实现，会写入一个删除标记；更新则是写入一条新记录）。</li>
+<li>当 Memtable 超过一定的大小后，会在内存里面冻结，变成不可变的 Memtable，同时为了不阻塞写操作需要新生成一个 Memtable继续提供服务。</li>
+<li>把内存里面不可变的 Memtable 给 flush 到到硬盘上的 SSTable 层中，此步骤也称为 Minor Compaction，这里需要注意在 L0 层的 SSTable 是没有进行合并的，所以这里的 key range 在多个 SSTable 中可能会出现重叠，在层数大于 0 层之后的 SSTable，不存在重叠 key。</li>
+<li>当每层的磁盘上的 SSTable 的体积超过一定的大小或者个数，也会周期的进行合并。此步骤也称为 Major Compaction。这个阶段会真正的清除掉被标记删除掉的数据以及多版本数据的合并，避免浪费空间，注意由于 SSTable 都是有序的，我们可以直接采用 merge sort 进行高效合并。</li>
 </ol>
-<p>于是，设 <code>C(k)</code> 为反向搜索爬到第 <code>k</code> 层的平均路径长度，则有：</p>
-<pre><code class="hljs lisp">C(<span class="hljs-number">0</span>) = <span class="hljs-number">0</span>
-C(<span class="hljs-name">k</span>) = p * (情况<span class="hljs-number">1</span>) + (<span class="hljs-number">1</span>-p) * (情况<span class="hljs-number">2</span>)</code></pre>
-<p>将两种情况也用 <code>C</code> 代入，有：</p>
-<pre><code class="hljs lisp">C(<span class="hljs-name">k</span>) = p*(<span class="hljs-number">1</span> + C(<span class="hljs-name">k</span>–<span class="hljs-number">1</span>)) + (<span class="hljs-number">1</span>–p)*(<span class="hljs-number">1</span> + C(<span class="hljs-name">k</span>))
-C(<span class="hljs-name">k</span>) = C(<span class="hljs-name">k</span>–<span class="hljs-number">1</span>) + <span class="hljs-number">1</span>/p
-C(<span class="hljs-name">k</span>) = k/p</code></pre>
-<p>我们知道跳表的最大层数为 $O(\log{}n)$，因此，搜索的复杂度 $O(\log{}n)/p=O(\log{}n)$。</p>
+<h4 id="读流程"><a href="#读流程" class="headerlink" title="读流程"></a>读流程</h4><ol>
+<li>当收到一个读请求的时候，会直接先在内存里面查询，如果查询到就返回。</li>
+<li>内存查询包括服务中的 Memtable 和不可变的 Memtable，也包括对于 SSTable 的缓存 block cache。</li>
+<li>如果内存中没有查询到就会依次下沉查询 SSTable，直到把所有的层次的 SSTable查询一遍得到最终结果。</li>
+</ol>
+<h3 id="写放大、读放大和空间放大"><a href="#写放大、读放大和空间放大" class="headerlink" title="写放大、读放大和空间放大"></a>写放大、读放大和空间放大</h3><p>LSM Tree 将随机写转化为顺序写，而作为代价带来了大量的重复写入。由此会引起写放大、读放大和空间放大。</p>
+<ul>
+<li><p>写放大（Write Amplification） :</p>
+<p>平均写入 1 个字节，引擎中在数据的声明周期内实际会写入 n 个字节，其写放大率是 n。如果业务方写入速度是 10MB/s，在引擎端或者操作系统层面能观察到的数据写入速度是 30MB/s，系统的写放大率就是 3。写放大过大会制约系统的实际吞吐。对于 SSD 来说，也会导致 SSD 寿命缩短。</p>
+<p>以下是 HBase 中的写放大示意图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/写放大.png" srcset="/img/loading.gif" alt="写放大示意图"></p>
+</li>
+<li><p>读放大（Read Amplification ）: </p>
+<p>一个读请求，系统所需要读 n 个页面来完成查询，其读放大率是 n。逻辑上的读操作可能会命中引擎内部的 cache 或者文件系统 cache，命中不了 cache 就会进行实际的磁盘 IO，命中 cache 的读取操作的代价虽然很低，但是也会消耗 CPU。</p>
+<p>以下是 HBase 中的读放大示意图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/读放大.jpg" srcset="/img/loading.gif" alt="读放大"></p>
+</li>
+<li><p>空间放大（Space Amplification）:</p>
+<p>平均存储 1 个字节的数据，在存储引擎内部所占用的磁盘空间 n 个字节，其空间放大是 n。比如写入 10MB 的数据，磁盘上实际占用了 100MB，这是空间放大率就是 10。空间放大和写放大在调优的时候往往是排斥的，空间放大越大，那么数据可能不需要频繁的 compaction，其写放大就会降低；如果空间放大率设置的小，那么数据就需要频繁的 compaction 来释放存储空间，导致写放大增大。</p>
 </li>
 </ul>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://lotabout.me/2018/skip-list/">跳表──没听过但很犀利的数据结构</a></p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>LSM tree 一般从以下几个方面进行优化：</p>
+<ol>
+<li><p>压缩</p>
+<p>SSTable 是可以启用压缩功能的，并且这种压缩不是将整个 SSTable 一起压缩，而是根据 locality 将数据分组，每个组分别压缩，这样的好处当读取数据的时候，我们不需要解压缩整个文件而是解压缩部分 Group 就可以读取。</p>
+</li>
+<li><p>缓存</p>
+<p>因为SSTable在写入磁盘后，除了Compaction之外，是不会变化的，所以我可以将 Scan 的 Block 进行缓存，从而提高检索的效率。</p>
+</li>
+<li><p>Bloom filter</p>
+<p>正常情况下，一个读操作是需要读取所有的 SSTable 将结果合并后返回的，但是对于某些 key 而言，有些 SSTable 是根本不包含对应数据的，因此，我们可以对每一个 SSTable 添加 Bloom Filter，因为 Bloom Filter 在判断一个 SSTable 不存在某个 key 的时候，那么就一定不会存在，利用这个特性可以减少不必要的磁盘扫描。</p>
+</li>
+<li><p>合并</p>
+<p>通过定期合并瘦身， 可以有效的清除无效数据，缩短读取路径，提高磁盘利用空间。但 Compaction 操作是非常消耗 CPU 和磁盘 IO的，尤其是在业务高峰期，如果发生了 Major Compaction，则会降低整个系统的吞吐量，这也是在使用一些 NoSQL 数据库时，比如 Hbase，常常会禁用 Major Compaction，并在凌晨业务低峰期进行合并的原因。</p>
+</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Log-structured_merge-tree">英文维基</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1441835">深入理解什么是LSM-Tree</a></p>
+<p><a target="_blank" rel="noopener" href="https://swanspouse.github.io/2019/01/28/LSM-Tree/">LSM Tree</a></p>
 <p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/34819650/">HBase原理与实践</a></p>
-<p><a target="_blank" rel="noopener" href="https://xiaobaoqiu.github.io/blog/2014/12/19/javabing-fa-rong-qi-zhi-skiplist/">Java并发容器之SkipList</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32225460">PebblesDB读后感</a></p>
+<p><a target="_blank" rel="noopener" href="https://darionyaphet.github.io/2018/10/06/RocksDB/">RocksDB</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65557081">LSM-tree减少写放大的一些策略</a></p>
 
             </div>
             <hr>
@@ -326,9 +317,7 @@ C(<span class="hljs-name">k</span>) = k/p</code></pre>
                     
                       <a class="hover-with-bg" href="/tags/HBase/">HBase</a>
                     
-                      <a class="hover-with-bg" href="/tags/Skip-List/">Skip List</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                      <a class="hover-with-bg" href="/tags/LSM-tree/">LSM tree</a>
                     
                   </div>
                 
@@ -341,18 +330,12 @@ C(<span class="hljs-name">k</span>) = k/p</code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%EF%BC%9ALSM%20tree/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据结构和算法：LSM Tree</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/02/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-                        <span class="hidden-mobile">HBase 学习：安装和使用</span>
+                      <a href="/2020/09/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%EF%BC%9ASkip%20List/">
+                        <span class="hidden-mobile">数据结构和算法：Skip List</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -638,7 +621,7 @@ C(<span class="hljs-name">k</span>) = k/p</code></pre>
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/2020/09/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%EF%BC%9ASkip%20List/');
+          var target = decodeURI('/2020/09/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%EF%BC%9ALSM%20tree/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
