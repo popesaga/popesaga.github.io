@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.5k 字
+      3.6k 字
     </span>
   
 
@@ -591,7 +591,9 @@ hexo d -g</code></pre>
 <p>编辑站点目录下的_config.yml配置文件，添加以下字段：</p>
 <pre><code class="hljs yaml"><span class="hljs-comment"># 自动生成sitemap</span>
 <span class="hljs-attr">sitemap:</span>
-  <span class="hljs-attr">path:</span> <span class="hljs-string">sitemap.xml</span></code></pre>
+  <span class="hljs-attr">path:</span> <span class="hljs-string">sitemap.xml</span>
+<span class="hljs-comment"># 修改url为网站地址</span>
+<span class="hljs-attr">url:</span> <span class="hljs-string">https://popesaga.github.io/</span></code></pre>
 <p>部署到远程仓库</p>
 <pre><code class="hljs sh">$ hexo g -d</code></pre>
 <h4 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h4><p>这时在远程仓库根目录就可以看到<code>sitemap.xml</code>文件了。<br>返回<a target="_blank" rel="noopener" href="https://www.google.com/webmasters/tools/home?hl=zh-CN">谷歌站点地图</a>，选择已经验证过的站点，在站点地图 中，添加新的站点地图，添加 sitemap.xml 的链接。</p>
