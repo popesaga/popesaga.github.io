@@ -56,7 +56,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -231,21 +231,21 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月27日 下午
+                  本文最后更新于：2020年10月9日 下午
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <p>搞技术的，没有一个自己的个人博客可能说不过去。有注意到最近一些访问的博客站点是使用Hexo来搭建的，看起来效果还不错。因此尝试用 Hexo 搭建一个静态的博客站点，再存放到 GitHub Pages 上。以下介绍的一些本地安装配置，均在 macOS 下操作。</p>
+              <p>搞技术的，没有一个自己的个人博客可能说不过去。有注意到最近一些访问的博客站点是使用 Hexo 来搭建的，看起来效果还不错。因此尝试用 Hexo 搭建一个静态的博客站点，再存放到 GitHub Pages 上。以下介绍的一些本地安装配置，均在 macOS 下操作。</p>
 <a id="more"></a>
 <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>首先需要安装 Git 和 Node.js ，git 已经安装好了。Mac 下安装 Node.js 需要使用 Homebrew ，之前安装的 Homebrew 已经年久失修，还需要更新。顺带补充下 Homebrew 的安装与使用。</p>
 <h4 id="Homebrew-安装"><a href="#Homebrew-安装" class="headerlink" title="Homebrew 安装"></a>Homebrew 安装</h4><ul>
 <li><p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn.html">Homebrew 官方网站</a></p>
 </li>
-<li><p>安装<code>XCode</code>或者<code>Command Line Tools for Xcode</code>。Xcode可以从AppStore里下载安装，<code>Command Line Tools for Xcode</code>需要在终端中输入以下代码运行安装：</p>
+<li><p>安装<code>XCode</code>或者<code>Command Line Tools for Xcode</code>。Xcode 可以从 AppStore 里下载安装，<code>Command Line Tools for Xcode</code>需要在终端中输入以下代码运行安装：</p>
 <pre><code class="hljs bash">xcode-select --install</code></pre>
 </li>
-<li><p>安装Homebrew。将以下命令粘贴至终端</p>
+<li><p>安装 Homebrew。将以下命令粘贴至终端</p>
 <pre><code class="hljs bash">/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>&quot;</span></code></pre>
 <p>脚本会在执行前暂停，并说明将它将做什么。</p>
 <blockquote>
@@ -359,7 +359,7 @@ hexo init</code></pre>
 <p>看起来功能完全覆盖了 Fluid，风格也是和 Fluid 类似的。配置文档太多了加上第一眼看到的是 Fluid，就放弃这个了。 </p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a></p>
-<p>先看到这个在看到的 ButterFly，功能看起来不如 ButterFly 丰富，不过第一眼印象还是更喜欢这个。</p>
+<p>先看到这个再看到的 ButterFly，功能看起来不如 ButterFly 丰富，不过第一眼印象还是更喜欢这个。</p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/Shen-Yu/hexo-theme-ayer">Ayer</a></p>
 <p>一个简洁也很漂亮的主题，也是让人纠结的选择。</p>
@@ -440,7 +440,7 @@ hexo init</code></pre>
 <pre><code class="hljs yaml"><span class="hljs-attr">index:</span>
   <span class="hljs-attr">auto_excerpt:</span>
     <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span></code></pre>
-<p>若要手动指定摘要，使用 <code>&lt;!-- more --&gt;</code> MD文档里划分，如：</p>
+<p>若要手动指定摘要，使用 <code>&lt;!-- more --&gt;</code> MD 文档里划分，如：</p>
 <pre><code class="hljs markdown">这里是摘要
 <span class="xml"><span class="hljs-comment">&lt;!-- more --&gt;</span></span>
 这里是正文</code></pre>
@@ -479,7 +479,7 @@ hexo init</code></pre>
   <span class="hljs-attr">comments:</span>
     <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
     <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span></code></pre>
-<p>比较推荐的主要是两个：utterances 和 valine。此处使用valine，据说配置方便又简约，基于 Leancloud 的无后端设计。</p>
+<p>比较推荐的主要是两个：utterances 和 valine。此处使用 valine，据说配置方便又简约，基于 Leancloud 的无后端设计。</p>
 <ul>
 <li>请先<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/login.html#/signin">登录</a>或<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/login.html#/signup">注册</a> <code>LeanCloud</code>, 进入<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/applist.html#/apps">控制台</a>后点击左下角<a target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/applist.html#/newapp">创建应用</a></li>
 <li>应用创建好以后，进入刚刚创建的应用，选择左下角的<code>设置</code>&gt;<code>应用Key</code>，然后就能看到你的<code>APP ID</code>和<code>APP Key</code>了</li>
@@ -526,7 +526,7 @@ hexo init</code></pre>
 <span class="hljs-bullet">- </span>[Life]</code></pre>
 <p>此时这篇文章同时包括三个分类： <code>PlayStation</code> 和 <code>Games</code> 分别都是父分类 <code>Diary</code> 的子分类，同时 <code>Life</code> 是一个没有子分类的分类。</p>
 </blockquote>
-<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><h5 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h5><p>在github上创建博客的仓库，创建仓库地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/new">https://github.com/new</a>。如果你希望你的站点能通过 &lt;你的 GitHub 用户名&gt;.github.io 域名访问，你的 repository 应该直接命名为 &lt;你的 GitHub 用户名&gt;.github.io。</p>
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><h5 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h5><p>在 github 上创建博客的仓库，创建仓库地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/new">https://github.com/new</a>。如果你希望你的站点能通过 &lt;你的 GitHub 用户名&gt;.github.io 域名访问，你的 repository 应该直接命名为 &lt;你的 GitHub 用户名&gt;.github.io。</p>
 <h5 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h5><ul>
 <li><p>修改博客目录下的 <code>_config.yml</code></p>
 <pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span>
@@ -546,7 +546,7 @@ hexo init</code></pre>
 <li><p>生成站点文件并推送至远程库。 hexo clean &amp;&amp; hexo deploy</p>
 <pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo deploy</code></pre>
 </li>
-<li><p>登入 Github，请在库设置（Repository Settings）中将默认分支设置为 _config.yml 配置中的分支名称。稍等片刻，您的站点就会显示在您的Github Pages中。</p>
+<li><p>登入 Github，请在库设置（Repository Settings）中将默认分支设置为 _config.yml 配置中的分支名称。稍等片刻，您的站点就会显示在您的 Github Pages 中。</p>
 </li>
 </ul>
 <h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><h4 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a>创建新文章</h4><pre><code class="hljs bash"><span class="hljs-comment"># 创建新文章</span>
@@ -572,23 +572,22 @@ hexo d -g</code></pre>
 </li>
 <li><p>下载验证文件</p>
 </li>
-<li><p>拷贝到你的本地博客hexo/sources/ 下</p>
-<p>&gt;<br>&gt;</p>
+<li><p>拷贝到你的本地博客 hexo/sources/ 下</p>
 <blockquote>
 <p><strong>注意</strong>：hexo在部署source 文件夹下markdown语法格式的文件成html格式时（本身文件格式就是html格式），都会遵守固有的html布局格式，<strong>所以后面Google验证html文件时，此时的“html验证文件”已经不是原本下载的文件，变成遵守固有布局的html文件</strong>，为了正常验证步骤进行，部署服务器前必须先打开“html验证文件“，加入以下内容，让固有的html布局失效。</p>
 <pre><code class="hljs xml">&gt;layout: false
 &gt;---</code></pre>
 </blockquote>
 </li>
-<li><p>部属到GitHub远程仓库</p>
+<li><p>部属到 GitHub 远程仓库</p>
 <pre><code class="hljs bash">hexo g -d</code></pre>
 </li>
 <li><p>本地操作完成后，继续返回到网站页面，点击验证，成功！</p>
 </li>
 </ol>
-<h4 id="生成站点地图"><a href="#生成站点地图" class="headerlink" title="生成站点地图"></a>生成站点地图</h4><p>在本地Hexo博客根目录下安装 sitemap 生成插件</p>
+<h4 id="生成站点地图"><a href="#生成站点地图" class="headerlink" title="生成站点地图"></a>生成站点地图</h4><p>在本地 Hexo 博客根目录下安装 sitemap 生成插件</p>
 <pre><code class="hljs bash">npm install hexo-generator-sitemap --save</code></pre>
-<p>编辑站点目录下的_config.yml配置文件，添加以下字段：</p>
+<p>编辑站点目录下的_config.yml 配置文件，添加以下字段：</p>
 <pre><code class="hljs yaml"><span class="hljs-comment"># 自动生成sitemap</span>
 <span class="hljs-attr">sitemap:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">sitemap.xml</span>
@@ -634,9 +633,9 @@ hexo d -g</code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A/">
+                      <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A%20+%20Textlint/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">写作工具配置：Typora + PicGo + GitHub 图床</span>
+                        <span class="hidden-mobile">写作工具配置：Typora + PicGo + GitHub 图床 + Textlint</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

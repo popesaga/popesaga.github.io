@@ -56,7 +56,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -231,12 +231,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月27日 晚上
+                  本文最后更新于：2020年10月9日 下午
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <p>如何高效判断元素 w 是否存在于集合 A 之中？首先想到的答案是，把集合 A 中的元素一个个放到哈希表中，然后在哈希表中查一下 w 即可。但如果 A 中元素数量巨大，甚至数据量远远超过机器内存空间，该如何解决问题呢？实现一个基于磁盘和内存的哈希索引当然可以解决这个问题。而另一种低成本的方式就是借助Bloom Filter（布隆过滤器）来实现。</p>
+              <p>如何高效判断元素 w 是否存在于集合 A 之中？首先想到的答案是，把集合 A 中的元素一个个放到哈希表中，然后在哈希表中查一下 w 即可。但如果 A 中元素数量巨大，甚至数据量远远超过机器内存空间，该如何解决问题呢？实现一个基于磁盘和内存的哈希索引当然可以解决这个问题。而另一种低成本的方式就是借助 Bloom Filter（布隆过滤器）来实现。</p>
 <a id="more"></a>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Bloom Filter（布隆过滤器）是一种高效利用空间的概率数据结构，由 Burton Howard Bloom 于 1970 年提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。Bloom Filter 可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。</p>
 <h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/bloomFilterWorkflow.png" srcset="/img/loading.gif" alt="bloomFilterWorkflow"></p>
@@ -259,10 +259,10 @@
 <ul>
 <li>NONE：关闭 Bloom Filter 功能。</li>
 <li>ROW：按照 rowkey 来计算 Bloom Filter 的二进制串并存储。Get 查询的时候，必须带 rowkey，所以用户可以在建表时默认把 Bloom Filter 设置为 ROW 类型。</li>
-<li>ROWCOL：按照 rowkey + family + qualifier 这3个字段拼出 byte[] 来计算 Bloom Filter 值并存储。如果在查询的时候，Get 能指定rowkey、family、qualifier 这3个字段，则肯定可以通过 Bloom Filter 提升性能。但是如果在查询的时候，Get 中缺少 rowkey、family、qualifier 中任何一个字段，则无法通过 Bloom Filter 提升性能，因为计算 Bloom Filter 的 Key 不确定。</li>
+<li>ROWCOL：按照 rowkey + family + qualifier 这 3 个字段拼出 byte[] 来计算 Bloom Filter 值并存储。如果在查询的时候，Get 能指定 rowkey、family、qualifier 这 3 个字段，则肯定可以通过 Bloom Filter 提升性能。但是如果在查询的时候，Get 中缺少 rowkey、family、qualifier 中任何一个字段，则无法通过 Bloom Filter 提升性能，因为计算 Bloom Filter 的 Key 不确定。</li>
 </ul>
-<p>一般意义上的 Scan 操作，HBase 都没法使用 Bloom Filter 来提升扫描数据性能。因为此时 Bloom Filter 的 Key 值不确定，所以没法计算出哈希值对比。但是，在某些特定场景下，Scan操作同样可以借助 Bloom Filter 提升性能。</p>
-<p>对于 ROWCOL 类型的 Bloom Filter 来说，如果在 Scan 操作中明确指定需要扫某些列。那么在 Scan 过程中，碰到 KV 数据从一行换到新的一行时，是没法走 ROWCOL 类型 Bloom Filter 的，因为新一行的 key 值不确定；但是，如果在同一行数据内切换列时，则能通过 ROWCOL 类型 Bloom Filter 进行优化，因为 rowkey 确定，同时 column 也已知，也就是说，Bloom Filter 中的Key确定，所以可以通过ROWCOL 优化性能。</p>
+<p>一般意义上的 Scan 操作，HBase 都没法使用 Bloom Filter 来提升扫描数据性能。因为此时 Bloom Filter 的 Key 值不确定，所以没法计算出哈希值对比。但是，在某些特定场景下，Scan 操作同样可以借助 Bloom Filter 提升性能。</p>
+<p>对于 ROWCOL 类型的 Bloom Filter 来说，如果在 Scan 操作中明确指定需要扫某些列。那么在 Scan 过程中，碰到 KV 数据从一行换到新的一行时，是没法走 ROWCOL 类型 Bloom Filter 的，因为新一行的 key 值不确定；但是，如果在同一行数据内切换列时，则能通过 ROWCOL 类型 Bloom Filter 进行优化，因为 rowkey 确定，同时 column 也已知，也就是说，Bloom Filter 中的 Key 确定，所以可以通过 ROWCOL 优化性能。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter 英文维基</a></p>
 <p><a target="_blank" rel="noopener" href="https://crossoverjie.top/2018/11/26/guava/guava-bloom-filter/">如何判断一个元素在亿级数据中是否存在？</a></p>
 <p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/34819650/">HBase原理与实践</a></p>
@@ -298,6 +298,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2020/09/29/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegionServer/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HBase 学习：RegionServer</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

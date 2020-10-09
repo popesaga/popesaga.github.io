@@ -56,7 +56,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -231,12 +231,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月27日 晚上
+                  本文最后更新于：2020年10月9日 下午
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <p>LSM tree全称是 Log-structured merge-tree，是一种分层，有序，面向磁盘的数据结构。其核心原理是磁盘批量顺序写比随机写性能高出很多，可以通过围绕这一原理进行设计和优化，让写性能达到最优。相较于传统的B+树，它减少了磁盘随机读取的需求，从而在一定程度上改善了数据库的写能力，当然在一定程度上牺牲了数据库的读能力。LSM tree 也是当今流行的各种 NoSQL 或 NewSQL 数据库最基础的底层数据结构，广泛使用在包括 Hbase，Cassandra，Leveldb，RocksDB，TiDB 等项目中。</p>
+              <p>LSM tree 全称是 Log-structured merge-tree，是一种分层，有序，面向磁盘的数据结构。其核心原理是磁盘批量顺序写比随机写性能高出很多，可以通过围绕这一原理进行设计和优化，让写性能达到最优。相较于传统的 B+树，它减少了磁盘随机读取的需求，从而在一定程度上改善了数据库的写能力，当然在一定程度上牺牲了数据库的读能力。LSM tree 也是当今流行的各种 NoSQL 或 NewSQL 数据库最基础的底层数据结构，广泛使用在包括 Hbase，Cassandra，Leveldb，RocksDB，TiDB 等项目中。</p>
 <a id="more"></a>
 <h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>传统的 B+ 树的缺陷就是在访问节点时涉及到了大量的磁盘随机读写，因为你无法保证节点常驻内存，尤其是当 B+ 树管理的索引量很大的时候。这导致数据库读写性能急剧下降。</p>
 <p> LSM tree 采取的做法就是通过引入多部件索引来减少磁盘随机读写的需求。在大量插入情况下我们周期性地选取两部分索引进行合并，并且把合并后的有序文件（或内存块）添加到磁盘尾部（或成为新文件），修改节点信息以保证索引树的正确和完整，并且周期性地回收失效索引。因此与其说 LSM tree 是一种树，不如说它是通过传统索引组织有序文件或内存块的一种方式。</p>
@@ -244,21 +244,21 @@
 <p>LSM tree 的节点可以分为两种：</p>
 <ul>
 <li>MemTable: 保存在内存中的部分，一般可以是红黑树、跳跃表，甚至可以是 B 树。在 HBase 中使用的是跳表，在 SQLite4 中使用的是只能追加写入的红黑树。</li>
-<li>SSTable: 保存在磁盘上的部分，一般由多个内部 KeyValue 有序的文件组成，它的 key 和 value 都是任意的字节数组，并且了提供了按指定 key 查找和指定范围的 key 区间迭代遍历的功能。SSTable 内部包含了一系列可配置大小的Block块。关于这些Block块的index存储在 SSTable 的尾部，用于帮助快速查找特定的 Block。当一个SSTable被打开的时候，index 会被加载到内存，然后根据key 在内存 index 里面进行一个二分查找，查到该 key 对应的磁盘的 offset 之后，然后去磁盘把响应的块数据读取出来。当然如果内存足够大的话，可以直接把 SSTable 直接通过 MMap 的技术映射到内存中，从而提供更快的查找。 </li>
+<li>SSTable: 保存在磁盘上的部分，一般由多个内部 KeyValue 有序的文件组成，它的 key 和 value 都是任意的字节数组，并且了提供了按指定 key 查找和指定范围的 key 区间迭代遍历的功能。SSTable 内部包含了一系列可配置大小的 Block 块。关于这些 Block 块的 index 存储在 SSTable 的尾部，用于帮助快速查找特定的 Block。当一个 SSTable 被打开的时候，index 会被加载到内存，然后根据 key 在内存 index 里面进行一个二分查找，查到该 key 对应的磁盘的 offset 之后，然后去磁盘把响应的块数据读取出来。当然如果内存足够大的话，可以直接把 SSTable 直接通过 MMap 的技术映射到内存中，从而提供更快的查找。 </li>
 </ul>
 <p>写操作直接作用于 MemTable, 因此写入性能接近写内存。每层 SSTable 文件到达一定条件后，进行合并操作，然后放置到更高层。合并操作在实现上一般是策略驱动、可插件化的。</p>
-<h3 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/LSM tree读写流程.png" srcset="/img/loading.gif" alt="LSM tree读写流程"></p>
+<h3 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/LSM tree 读写流程.png" srcset="/img/loading.gif" alt="LSM tree读写流程"></p>
 <h4 id="写流程"><a href="#写流程" class="headerlink" title="写流程"></a>写流程</h4><ol>
 <li>当收到一个写请求时，会先把该条数据记录在 WAL（Write-ahead logging）里面，用作故障恢复。</li>
 <li>当写完 WAL 后，会把该条数据写入内存的 MemTable 里面（删除操作也通过写入实现，会写入一个删除标记；更新则是写入一条新记录）。</li>
-<li>当 Memtable 超过一定的大小后，会在内存里面冻结，变成不可变的 Memtable，同时为了不阻塞写操作需要新生成一个 Memtable继续提供服务。</li>
+<li>当 Memtable 超过一定的大小后，会在内存里面冻结，变成不可变的 Memtable，同时为了不阻塞写操作需要新生成一个 Memtable 继续提供服务。</li>
 <li>把内存里面不可变的 Memtable 给 flush 到到硬盘上的 SSTable 层中，此步骤也称为 Minor Compaction，这里需要注意在 L0 层的 SSTable 是没有进行合并的，所以这里的 key range 在多个 SSTable 中可能会出现重叠，在层数大于 0 层之后的 SSTable，不存在重叠 key。</li>
 <li>当每层的磁盘上的 SSTable 的体积超过一定的大小或者个数，也会周期的进行合并。此步骤也称为 Major Compaction。这个阶段会真正的清除掉被标记删除掉的数据以及多版本数据的合并，避免浪费空间，注意由于 SSTable 都是有序的，我们可以直接采用 merge sort 进行高效合并。</li>
 </ol>
 <h4 id="读流程"><a href="#读流程" class="headerlink" title="读流程"></a>读流程</h4><ol>
 <li>当收到一个读请求的时候，会直接先在内存里面查询，如果查询到就返回。</li>
 <li>内存查询包括服务中的 Memtable 和不可变的 Memtable，也包括对于 SSTable 的缓存 block cache。</li>
-<li>如果内存中没有查询到就会依次下沉查询 SSTable，直到把所有的层次的 SSTable查询一遍得到最终结果。</li>
+<li>如果内存中没有查询到就会依次下沉查询 SSTable，直到把所有的层次的 SSTable 查询一遍得到最终结果。</li>
 </ol>
 <h3 id="写放大、读放大和空间放大"><a href="#写放大、读放大和空间放大" class="headerlink" title="写放大、读放大和空间放大"></a>写放大、读放大和空间放大</h3><p>LSM Tree 将随机写转化为顺序写，而作为代价带来了大量的重复写入。由此会引起写放大、读放大和空间放大。</p>
 <ul>
@@ -282,13 +282,13 @@
 <p>SSTable 是可以启用压缩功能的，并且这种压缩不是将整个 SSTable 一起压缩，而是根据 locality 将数据分组，每个组分别压缩，这样的好处当读取数据的时候，我们不需要解压缩整个文件而是解压缩部分 Group 就可以读取。</p>
 </li>
 <li><p>缓存</p>
-<p>因为SSTable在写入磁盘后，除了Compaction之外，是不会变化的，所以我可以将 Scan 的 Block 进行缓存，从而提高检索的效率。</p>
+<p>因为 SSTable 在写入磁盘后，除了 Compaction 之外，是不会变化的，所以我可以将 Scan 的 Block 进行缓存，从而提高检索的效率。</p>
 </li>
 <li><p>Bloom filter</p>
 <p>正常情况下，一个读操作是需要读取所有的 SSTable 将结果合并后返回的，但是对于某些 key 而言，有些 SSTable 是根本不包含对应数据的，因此，我们可以对每一个 SSTable 添加 Bloom Filter，因为 Bloom Filter 在判断一个 SSTable 不存在某个 key 的时候，那么就一定不会存在，利用这个特性可以减少不必要的磁盘扫描。</p>
 </li>
 <li><p>合并</p>
-<p>通过定期合并瘦身， 可以有效的清除无效数据，缩短读取路径，提高磁盘利用空间。但 Compaction 操作是非常消耗 CPU 和磁盘 IO的，尤其是在业务高峰期，如果发生了 Major Compaction，则会降低整个系统的吞吐量，这也是在使用一些 NoSQL 数据库时，比如 Hbase，常常会禁用 Major Compaction，并在凌晨业务低峰期进行合并的原因。</p>
+<p>通过定期合并瘦身， 可以有效的清除无效数据，缩短读取路径，提高磁盘利用空间。但 Compaction 操作是非常消耗 CPU 和磁盘 IO 的，尤其是在业务高峰期，如果发生了 Major Compaction，则会降低整个系统的吞吐量，这也是在使用一些 NoSQL 数据库时，比如 Hbase，常常会禁用 Major Compaction，并在凌晨业务低峰期进行合并的原因。</p>
 </li>
 </ol>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Log-structured_merge-tree">LSM tree 英文维基</a></p>

@@ -43,7 +43,7 @@
 
 
 <body>
-  <header style="height: 50vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -174,6 +174,61 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/09/29/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegionServer/">HBase 学习：RegionServer</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/29/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegionServer/">
+          
+          
+            
+          
+          RegionServer 是 HBase 系统中最核心的组件，主要负责用户数据写入、读取等基础操作。RegionServer 包含多个核心模块：HLog、MemStore、HFile 以及 BlockCache。本文主要介绍 RegionServer 核心模块的作用、内部结构等内容。后续文章中将会进一步介绍 HBase 的写入读取流程。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-29 15:03" pubdate>
+              2020-09-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/HBase/">HBase</a>
+            
+              <a href="/tags/HLog/">HLog</a>
+            
+              <a href="/tags/MemStore/">MemStore</a>
+            
+              <a href="/tags/HFile/">HFile</a>
+            
+              <a href="/tags/BlockCache/">BlockCache</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/09/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%EF%BC%9ABloom%20filter/">数据结构和算法：Bloom Filter</a>
       </h1>
 
@@ -183,7 +238,7 @@
           
             
           
-          如何高效判断元素 w 是否存在于集合 A 之中？首先想到的答案是，把集合 A 中的元素一个个放到哈希表中，然后在哈希表中查一下 w 即可。但如果 A 中元素数量巨大，甚至数据量远远超过机器内存空间，该如何解决问题呢？实现一个基于磁盘和内存的哈希索引当然可以解决这个问题。而另一种低成本的方式就是借助Bloom Filter（布隆过滤器）来实现。
+          如何高效判断元素 w 是否存在于集合 A 之中？首先想到的答案是，把集合 A 中的元素一个个放到哈希表中，然后在哈希表中查一下 w 即可。但如果 A 中元素数量巨大，甚至数据量远远超过机器内存空间，该如何解决问题呢？实现一个基于磁盘和内存的哈希索引当然可以解决这个问题。而另一种低成本的方式就是借助 Bloom Filter（布隆过滤器）来实现。
         </a>
       </p>
 
@@ -232,7 +287,7 @@
           
             
           
-          LSM tree全称是 Log-structured merge-tree，是一种分层，有序，面向磁盘的数据结构。其核心原理是磁盘批量顺序写比随机写性能高出很多，可以通过围绕这一原理进行设计和优化，让写性能达到最优。相较于传统的B+树，它减少了磁盘随机读取的需求，从而在一定程度上改善了数据库的写能力，当然在一定程度上牺牲了数据库的读能力。LSM tree 也是当今流行的各种 NoSQL 或 New
+          LSM tree 全称是 Log-structured merge-tree，是一种分层，有序，面向磁盘的数据结构。其核心原理是磁盘批量顺序写比随机写性能高出很多，可以通过围绕这一原理进行设计和优化，让写性能达到最优。相较于传统的 B+树，它减少了磁盘随机读取的需求，从而在一定程度上改善了数据库的写能力，当然在一定程度上牺牲了数据库的读能力。LSM tree 也是当今流行的各种 NoSQL 或 N
         </a>
       </p>
 
@@ -417,16 +472,16 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
-        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A/">写作工具配置：Typora + PicGo + GitHub 图床</a>
+        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A%20+%20Textlint/">写作工具配置：Typora + PicGo + GitHub 图床 + Textlint</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A/">
+        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A%20+%20Textlint/">
           
           
             
           
-          写作工具备选方案
+          写作指南写作工具
 支持 Markdown 的文本编辑器
 常见的文本编辑器如 VS Code 、Sublime Text 都可以原生或者通过扩展支持 MarkDown。也可以选择专门的 MarkDown 编辑器：7款好用的 MarkDown 编辑器推荐。
 选择文本编辑器写作，就必须要熟悉 MarkDown 的语法。好在 MarkDown 的语法比较简单，号称五分钟就能上手，剩下的就多写多练了。
@@ -467,6 +522,8 @@
             
               <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
             
+              <a href="/tags/Textlint/">Textlint</a>
+            
           </div>
         
       </div>
@@ -487,7 +544,7 @@
           
             
           
-          搞技术的，没有一个自己的个人博客可能说不过去。有注意到最近一些访问的博客站点是使用Hexo来搭建的，看起来效果还不错。因此尝试用 Hexo 搭建一个静态的博客站点，再存放到 GitHub Pages 上。以下介绍的一些本地安装配置，均在 macOS 下操作。
+          搞技术的，没有一个自己的个人博客可能说不过去。有注意到最近一些访问的博客站点是使用 Hexo 来搭建的，看起来效果还不错。因此尝试用 Hexo 搭建一个静态的博客站点，再存放到 GitHub Pages 上。以下介绍的一些本地安装配置，均在 macOS 下操作。
         </a>
       </p>
 
