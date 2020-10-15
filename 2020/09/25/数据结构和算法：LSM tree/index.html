@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月9日 下午
+                  本文最后更新于：2020年10月15日 下午
                 
               </p>
             
@@ -247,7 +247,7 @@
 <li>SSTable: 保存在磁盘上的部分，一般由多个内部 KeyValue 有序的文件组成，它的 key 和 value 都是任意的字节数组，并且了提供了按指定 key 查找和指定范围的 key 区间迭代遍历的功能。SSTable 内部包含了一系列可配置大小的 Block 块。关于这些 Block 块的 index 存储在 SSTable 的尾部，用于帮助快速查找特定的 Block。当一个 SSTable 被打开的时候，index 会被加载到内存，然后根据 key 在内存 index 里面进行一个二分查找，查到该 key 对应的磁盘的 offset 之后，然后去磁盘把响应的块数据读取出来。当然如果内存足够大的话，可以直接把 SSTable 直接通过 MMap 的技术映射到内存中，从而提供更快的查找。 </li>
 </ul>
 <p>写操作直接作用于 MemTable, 因此写入性能接近写内存。每层 SSTable 文件到达一定条件后，进行合并操作，然后放置到更高层。合并操作在实现上一般是策略驱动、可插件化的。</p>
-<h3 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/LSM tree 读写流程.png" srcset="/img/loading.gif" alt="LSM tree读写流程"></p>
+<h3 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h3><p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201015144912.png" srcset="/img/loading.gif" alt="LSM tree读写流程"></p>
 <h4 id="写流程"><a href="#写流程" class="headerlink" title="写流程"></a>写流程</h4><ol>
 <li>当收到一个写请求时，会先把该条数据记录在 WAL（Write-ahead logging）里面，用作故障恢复。</li>
 <li>当写完 WAL 后，会把该条数据写入内存的 MemTable 里面（删除操作也通过写入实现，会写入一个删除标记；更新则是写入一条新记录）。</li>
