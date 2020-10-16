@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8k 字
+      8.6k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      89
+      95
        分钟
     </span>
   
@@ -414,6 +414,12 @@
 <li>大 Region：小 region 没有必要切分为 stripes，一旦切分，反而会带来额外的管理开销。一般默认如果 region 大小小于 2G，就不适合使用 stripe compaction。</li>
 <li>RowKey 具有统一格式：stripe compaction 要求所有数据按照 Key 进行切分，切分为多个 stripe。如果 rowkey 不具有统一格式的话，无法进行切分。</li>
 </ol>
+<h5 id="MOB-Compaction"><a href="#MOB-Compaction" class="headerlink" title="MOB Compaction"></a>MOB Compaction</h5><p>有的场景下，需要使用 HBase 来存储 MB 级别的 Blob(如图片之类的小文件)数据，如果像普通的结构化数据/半结构化数据一样，直接写到 HBase 中，数 MB 级别的 Blob 数据，被反复多次合并以后，会严重抢占 IO 资源。</p>
+<p>因此，HBase 的 MOB 特性的设计思想为：将 Blob 数据与描述 Blob 的元数据分离存储，Blob 元数据采用正常的 HBase 的数据存储方式，而 Blob 数据存储在额外的 MOB 文件中，但在 Blob 元数据行中，存储了这个 MOB 文件的路径信息。MOB 文件本质还是一个 HFile 文件，但这种 HFile 文件不参与 HBase 正常的 Compaction 流程。仅仅合并 Blob 元数据信息，写 IO 放大的问题就得到了有效的缓解。</p>
+<p>MOB Compaction 也主要是针对 MOB 特性而存在的，这里涉及到数据在 MOB 文件与普通的 HFile 文件之间的一些流动，尤其是 MOB 的阈值大小发生变更的时候(即当一个列超过预设的配置值时，才被认定为 MOB)。</p>
+<p>在每月压缩策略的情况下，基于 MOB 配置的阈值，当前日历周中的文件按照天进行压缩，本月的之前日历周中文件是按照周进行压缩，过去几个月的文件基于月进行压缩。通过这种设计，MOB 文件在月策略的情况下最多只会压缩 3 次；在周策略的情况下最多只会压缩 2 次。</p>
+<p>默认情况下，MOB 压缩分区策略为天级别。按天压缩可能导致产生过多的文件，超出文件数量限制。因此可以使用每周或每月的策略。我们需要使用 MOB 列族的<code>MOB_COMPACT_PARTITION_POLICY</code> 属性。用户可以在 HBase shell 创建表时设置此属性。</p>
+<p>如果压缩策略从每天更改为每周或每月，或每周更改为每月，则下一个 MOB 压缩将重新压缩之前策略压缩过的 MOB 文件。如果策略从每月或每周更改为每天，或者每月更改为每周，则已经压缩过的 MOB 文件在新的压缩策略将不再被压缩。</p>
 <h4 id="吞吐量限制和带宽占用"><a href="#吞吐量限制和带宽占用" class="headerlink" title="吞吐量限制和带宽占用"></a>吞吐量限制和带宽占用</h4><h5 id="Limit-Compaction-Speed"><a href="#Limit-Compaction-Speed" class="headerlink" title="Limit Compaction Speed"></a>Limit Compaction Speed</h5><p>上述几种策略都是根据不同的业务场景设置对应的文件选择策略，核心都是减少参与 compaction 的文件数，缩短整个 compaction 执行的时间，间接降低 compaction 的 IO 放大效应，减少对业务读写的延迟影响。然而，如果不对 Compaction 执行阶段的读写吞吐量进行限制的话也会引起短时间大量系统资源消耗，影响用户业务延迟。</p>
 <p>通过感知 Compaction 的压力情况自动调节系统的 Compaction 吞吐量，在压力大的时候降低合并吞吐量，压力小的时候增加合并吞吐量。基本原理为：</p>
 <ol>
@@ -448,6 +454,7 @@
 <p><a target="_blank" rel="noopener" href="http://hbasefly.com/2016/07/25/hbase-compaction-2/">HBase Compaction的前生今世－改造之路</a></p>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/220934/blog/363270">HBase Compaction算法之ExploringCompactionPolicy</a></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903727590031373">HBase HFile Compact吞吐量参数控制优化剖析-OLAP商业环境实战</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2416.html">Apache HBase中等对象存储MOB压缩分区策略介绍</a></p>
 
             </div>
             <hr>
