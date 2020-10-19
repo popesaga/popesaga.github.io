@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      98
+      99
        分钟
     </span>
   
@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月19日 中午
+                  本文最后更新于：2020年10月19日 下午
                 
               </p>
             
@@ -440,11 +440,11 @@
 <li>numOfFilesDisableCompactLimit：很显然，在写请求非常大的情况下，限制 compaction 带宽的使用量必然会导致 HFile 堆积，进而会影响到读请求响应延时。因此该值意义就很明显，一旦 store 中 hfile 数量超过该设定值，带宽限制就会失效。</li>
 </ol>
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
-<li><p>Compaction对于查询毛刺的影响</p>
-<p>关于Compaction的参数调优，我们可能看到过这样的一些建议：尽可能的减少每一次Compaction的文件数量，目的是为了减短每一次Compaction的执行时间。但在实践中，这可能并不是一个合理的建议，例如，HBase默认的触发Minor Compaction的最小文件数量为3，但事实上，对于大多数场景而言，这可能是一个非常不合理的默认值，在我们的测试中，我们将最小文件数加大到10个，我们发现对于整体的吞吐量以及查询毛刺，都有极大的改进，所以，这里的建议为：Minor Compaction的文件数量应该要结合实际业务场景设置合理的值。另外，在实践中，合理的限制Compaction资源的占用也是非常关键的，如Compaction的并发执行度，以及Compaction的吞吐量以及网络带宽占用等等。</p>
+<li><p>Compaction 对于查询毛刺的影响</p>
+<p>关于 Compaction 的参数调优，我们可能看到过这样的一些建议：尽可能的减少每一次 Compaction 的文件数量，目的是为了减短每一次 Compaction 的执行时间。但在实践中，这可能并不是一个合理的建议，例如，HBase 默认的触发 Minor Compaction 的最小文件数量为 3，但事实上，对于大多数场景而言，这可能是一个非常不合理的默认值，在我们的测试中，我们将最小文件数加大到 10 个，我们发现对于整体的吞吐量以及查询毛刺，都有极大的改进，所以，这里的建议为：Minor Compaction 的文件数量应该要结合实际业务场景设置合理的值。另外，在实践中，合理的限制 Compaction 资源的占用也是非常关键的，如 Compaction 的并发执行度，以及 Compaction 的吞吐量以及网络带宽占用等等。</p>
 </li>
-<li><p>Compaction会影响Block Cache</p>
-<p>HFile文件发生合并以后，旧HFile文件所关联的被Cache的Block将会失效。这也会影响到读取时延。</p>
+<li><p>Compaction 会影响 Block Cache</p>
+<p>HFile 文件发生合并以后，旧 HFile 文件所关联的被 Cache 的 Block 将会失效。这也会影响到读取时延。</p>
 </li>
 </ul>
 <h3 id="In-memory-Flush-and-Compaction"><a href="#In-memory-Flush-and-Compaction" class="headerlink" title="In-memory Flush and Compaction"></a>In-memory Flush and Compaction</h3><p>HBase 2.0 新增的特性，默认禁用。开启之后，MemStore 由一个可写的 Segment，以及一个或多个不可写的 Segments 构成。</p>
