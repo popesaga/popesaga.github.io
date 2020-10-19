@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月19日 下午
+                  本文最后更新于：2020年10月19日 晚上
                 
               </p>
             
@@ -526,9 +526,9 @@ scan.setFilter(filter);</code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201019155408.png" srcset="/img/loading.gif" alt="image-20201019155407062"></p>
 <p>上面这种读取的顺序与实际存在的数据的逻辑顺序也是相同的。</p>
 <p>由于不同的 Scan 所读取的每一行中的数据不同，有的限定了列的数量，有的限定了版本的数量，这使得读取时可以通过一些优化，减少不必要的数据扫描。如某次 Scan 在允许读多个版本的同时，限定了只读取 C1~C3，那么，读取顺序应该为：</p>
-<p><img src="/Users/wangrui/Library/Application Support/typora-user-images/image-20201019155451197.png" srcset="/img/loading.gif" alt="image-20201019155451197"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201019182116.png" srcset="/img/loading.gif" alt="image-20201019155451197"></p>
 <p>最普通的 Scan，其实只需要读取每一列的最新版本即可，那读取的顺序应该为：</p>
-<p><img src="/Users/wangrui/Library/Application Support/typora-user-images/image-20201019155523799.png" srcset="/img/loading.gif" alt="image-20201019155523799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201019182112.png" srcset="/img/loading.gif" alt="image-20201019155523799"></p>
 <p>我们知道 KeyValueScanner 定义了基础的 seek/reseek/requestSeek 等接口，可以将指针移动到指定 KeyValue 位置。关于指针如何移动的决策信息，由 ScanQueryMatcher 提供的。ScanQueryMatcher 对每一个 KeyValue 的逻辑检查结果称之为 MatchCode，MatchCode 不仅包含了是否应该返回该 KeyValue 的结果，还可能给出了 Scanner 的下一步操作的提示信息。关于它的枚举值，简单举例如下：</p>
 <ul>
 <li><p>INCLUDE_AND_SEEK_NEXT_ROW</p>
