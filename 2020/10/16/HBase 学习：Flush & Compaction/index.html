@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.6k 字
+      8.9k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      95
+      98
        分钟
     </span>
   
@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月16日 晚上
+                  本文最后更新于：2020年10月19日 中午
                 
               </p>
             
@@ -439,6 +439,14 @@
 <li>compactBwLimit：一次 compaction 的最大带宽使用量，如果 compaction 所使用的带宽高于该值，就会强制令其 sleep 一段时间</li>
 <li>numOfFilesDisableCompactLimit：很显然，在写请求非常大的情况下，限制 compaction 带宽的使用量必然会导致 HFile 堆积，进而会影响到读请求响应延时。因此该值意义就很明显，一旦 store 中 hfile 数量超过该设定值，带宽限制就会失效。</li>
 </ol>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><p>Compaction对于查询毛刺的影响</p>
+<p>关于Compaction的参数调优，我们可能看到过这样的一些建议：尽可能的减少每一次Compaction的文件数量，目的是为了减短每一次Compaction的执行时间。但在实践中，这可能并不是一个合理的建议，例如，HBase默认的触发Minor Compaction的最小文件数量为3，但事实上，对于大多数场景而言，这可能是一个非常不合理的默认值，在我们的测试中，我们将最小文件数加大到10个，我们发现对于整体的吞吐量以及查询毛刺，都有极大的改进，所以，这里的建议为：Minor Compaction的文件数量应该要结合实际业务场景设置合理的值。另外，在实践中，合理的限制Compaction资源的占用也是非常关键的，如Compaction的并发执行度，以及Compaction的吞吐量以及网络带宽占用等等。</p>
+</li>
+<li><p>Compaction会影响Block Cache</p>
+<p>HFile文件发生合并以后，旧HFile文件所关联的被Cache的Block将会失效。这也会影响到读取时延。</p>
+</li>
+</ul>
 <h3 id="In-memory-Flush-and-Compaction"><a href="#In-memory-Flush-and-Compaction" class="headerlink" title="In-memory Flush and Compaction"></a>In-memory Flush and Compaction</h3><p>HBase 2.0 新增的特性，默认禁用。开启之后，MemStore 由一个可写的 Segment，以及一个或多个不可写的 Segments 构成。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201016112735.png" srcset="/img/loading.gif" alt="image-20201016112734469"></p>
 <p>MemStore 中的数据先 Flush 成一个 Immutable 的 Segment，多个 Immutable Segments 可以在内存中进行 Compaction，当达到一定阈值以后才将内存中的数据持久化成 HDFS 中的 HFile 文件。</p>
@@ -452,9 +460,11 @@
 <p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2497.html?from=like#MemStore_FlushPolicy">HBase 入门之数据刷写(Memstore Flush)详细说明</a></p>
 <p><a target="_blank" rel="noopener" href="http://hbasefly.com/2016/07/13/hbase-compaction-1/">HBase Compaction的前生今世－身世之旅</a></p>
 <p><a target="_blank" rel="noopener" href="http://hbasefly.com/2016/07/25/hbase-compaction-2/">HBase Compaction的前生今世－改造之路</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b22d664d0c2f">HBase Compaction-(2)ExploringCompactionPolicy以及RatioBasedCompactionPolicy</a></p>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/220934/blog/363270">HBase Compaction算法之ExploringCompactionPolicy</a></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903727590031373">HBase HFile Compact吞吐量参数控制优化剖析-OLAP商业环境实战</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2416.html">Apache HBase中等对象存储MOB压缩分区策略介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/683101">HBase实战之MOB使用指南</a></p>
 
             </div>
             <hr>
