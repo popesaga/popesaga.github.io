@@ -2,14 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://popesaga.github.io/2020/10/16/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9AFlush%20&%20Compaction/</loc>
-    
-    <lastmod>2020-10-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://popesaga.github.io/2020/08/20/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://popesaga.github.io/2020/10/19/HBase-%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/</loc>
     
     <lastmod>2020-10-19</lastmod>
     
@@ -51,6 +44,27 @@
   </url>
   
   <url>
+    <loc>https://popesaga.github.io/2020/07/09/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%9AGitHub%20Pages%20+%20Hexo%20+%20Fluid/</loc>
+    
+    <lastmod>2020-10-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://popesaga.github.io/2020/10/16/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9AFlush%20&%20Compaction/</loc>
+    
+    <lastmod>2020-10-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://popesaga.github.io/2020/08/20/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    
+    <lastmod>2020-10-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://popesaga.github.io/2020/09/29/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegionServer/</loc>
     
     <lastmod>2020-10-19</lastmod>
@@ -59,13 +73,6 @@
   
   <url>
     <loc>https://popesaga.github.io/2020/10/15/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/</loc>
-    
-    <lastmod>2020-10-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://popesaga.github.io/2020/07/09/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%9AGitHub%20Pages%20+%20Hexo%20+%20Fluid/</loc>
     
     <lastmod>2020-10-19</lastmod>
     
