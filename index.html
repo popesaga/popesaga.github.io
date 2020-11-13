@@ -174,11 +174,58 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
-        <a href="/2020/10/19/HBase-%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">HBase 学习：读取流程</a>
+        <a href="/2020/11/13/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegion%20%E8%BF%81%E7%A7%BB%E3%80%81%E5%90%88%E5%B9%B6%E3%80%81%E5%88%86%E8%A3%82%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">HBase 学习：Region 迁移、合并、分裂和负载均衡</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/10/19/HBase-%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">
+        <a href="/2020/11/13/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9ARegion%20%E8%BF%81%E7%A7%BB%E3%80%81%E5%90%88%E5%B9%B6%E3%80%81%E5%88%86%E8%A3%82%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
+          
+          
+            
+          
+          负载均衡是分布式系统的必备功能，多个节点组成的分布式系统必须通过负载均衡机制保证各个节点之间负载的均衡性，一旦出现负载非常集中的情况，就很有可能导致对应的部分节点响应变慢，进而拖慢甚至拖垮整个集群。HBase 基于 Region 的数量实现负载均衡。平衡 Region 数量会进行 Region 迁移。为了避免单个 Region 过大或者过小，可以对 Region 做合并或分裂操作。本文首先介绍 R
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-13 15:49" pubdate>
+              2020-11-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/HBase/">HBase</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/10/19/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">HBase 学习：读取流程</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/19/HBase%20%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">
           
           
             
@@ -601,63 +648,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/HBase/">HBase</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A%20+%20Textlint/">写作工具配置：Typora + PicGo + GitHub 图床 + Textlint</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/02/%E5%86%99%E4%BD%9C%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%EF%BC%9ATypora%20+%20PicGo%20+%20GitHub%20%E5%9B%BE%E5%BA%8A%20+%20Textlint/">
-          
-          
-            
-          
-          工欲善其事，必先利其器
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-02 18:09" pubdate>
-              2020-08-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Typora/">Typora</a>
-            
-              <a href="/tags/PicGo/">PicGo</a>
-            
-              <a href="/tags/GitHub/">GitHub</a>
-            
-              <a href="/tags/MarkDown/">MarkDown</a>
-            
-              <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
-            
-              <a href="/tags/Textlint/">Textlint</a>
             
           </div>
         
