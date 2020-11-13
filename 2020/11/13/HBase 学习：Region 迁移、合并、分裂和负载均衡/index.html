@@ -243,14 +243,14 @@
 <h4 id="迁移过程"><a href="#迁移过程" class="headerlink" title="迁移过程"></a>迁移过程</h4><p>Region 迁移大体上分为两个阶段：unassign 阶段和 assign 阶段。</p>
 <p>unassign region 的具体流程为：</p>
 <ul>
-<li>create zk closing node . 该节点在/unassigned 路径下， 包含(znode 状态，region 名字，原始 RS 名，payload)这些数据。</li>
-<li>hmaster 调用 rpc 服务关闭 region server。region-close 的流程大致为先获取 region 的 writeLock ， 然后 flush memstore, 再并发关闭该 region 下的所有的 store file 文件(注意一个 region 有多个 store，每个 store 又有多个 store file , 所以可以实现并发 close store file) 。最后释放 region 的 writeLock.</li>
-<li>设置 zk closing node 的 znode 状态为 closed.</li>
+<li>create zk closing node。该节点在/unassigned 路径下， 包含(znode 状态，region 名字，原始 RS 名，payload)这些数据。</li>
+<li>hmaster 调用 rpc 服务关闭 region server。region-close 的流程大致为先获取 region 的 writeLock ， 然后 flush memstore, 再并发关闭该 region 下的所有的 store file 文件(注意一个 region 有多个 store，每个 store 又有多个 store file , 所以可以实现并发 close store file) 。最后释放 region 的 writeLock。</li>
+<li>设置 zk closing node 的 znode 状态为 closed。</li>
 </ul>
 <p>assgin region 的具体流程为：</p>
 <ul>
-<li>获取到对应的 Region Plan.</li>
-<li>HMaster 调用 rpc 服务去 Region Plan 对应的 RegionServer 上 open region. 这里会先更新/unassigned 节点为 opening. 然后并发 Load HStore，再更行 zk/ROOT/META 表信息，这里是为了 client 下次能获取到正确的路由信息， 最后更新 region 状态为 OPEN.</li>
+<li>获取到对应的 Region Plan。</li>
+<li>HMaster 调用 rpc 服务去 Region Plan 对应的 RegionServer 上 open region。这里会先更新/unassigned 节点为 opening。然后并发 Load HStore，再更行 zk/ROOT/META 表信息，这里是为了 client 下次能获取到正确的路由信息， 最后更新 region 状态为 OPEN。</li>
 </ul>
 <h4 id="Region-In-Transition-RIT"><a href="#Region-In-Transition-RIT" class="headerlink" title="Region In Transition (RIT)"></a>Region In Transition (RIT)</h4><p>Region-In-Transition 说的是 Region 变迁机制，实际上是指在一次特定操作行为中 Region 状态的变迁。HBase 定义的 Region 状态见下表：</p>
 <div class="table-container">
@@ -422,7 +422,7 @@
 <ol>
 <li>随机选择两个 RS, 从每个 RS 中随机选择两个 Region，然后生成一个 Action, 这个 Action 有一半概率做 RegionMove（从 Region 多的 RS 迁移到 Region 少的 RS）, 另一半概率做 RegionSwap(两个 RS 之间做 Region 的交换)。</li>
 <li>选择 Region 最多的 RS 和 Region 最少的 RS，然后生成一个 Action, 这个 Action 一半概率做 RegionMove, 一半概率做 RegionSwap。</li>
-<li>随机找一个 RS，然后找到该 RS 上数据 locality 最差的 Region，再找到 Region 大部分数据落在的 RS，然后生成一个 Action，该 Action 用来把 Region 迁移到它应该所在的 RS，用来提高 locality.</li>
+<li>随机找一个 RS，然后找到该 RS 上数据 locality 最差的 Region，再找到 Region 大部分数据落在的 RS，然后生成一个 Action，该 Action 用来把 Region 迁移到它应该所在的 RS，用来提高 locality。</li>
 </ol>
 <h4 id="Rebalance-触发"><a href="#Rebalance-触发" class="headerlink" title="Rebalance 触发"></a>Rebalance 触发</h4><p>HMaster 会有个 BalancerChore 定时类去检查触发，间隔时间：<code>hbase.balancer.period</code> (默认值：300000s=5min) 。当然 HBaseAdmin 或 shell 也提供了命令接口可以手动触发。</p>
 <h4 id="Rebalance-方式"><a href="#Rebalance-方式" class="headerlink" title="Rebalance 方式"></a>Rebalance 方式</h4><p>有两种方式，默认是把当前 RS 的 region 混在一起去 rebalance，若<code>hbase.master.loadbalance.bytable=true</code>，则会按照一个表一个表来 rebalance，这样至少可以确保某些表中途是 rebalance 完的。有人会称后者为表级 rebalance，但实际上这并不是纯粹的表级 rebalance，如果你真的只想触发某个表的 rebalance，可能得考虑自定义策略去过滤其他表的 region 并且将上述 bytable 配置配置为 true。</p>
