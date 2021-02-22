@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      708 字
+      785 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -347,24 +347,24 @@ $ chmod 0600 ~/.ssh/authorized_keys</code></pre>
 </li>
 </ul>
 <h3 id="HBase-Shell"><a href="#HBase-Shell" class="headerlink" title="HBase Shell"></a>HBase Shell</h3><ul>
-<li>进入 HBase 命令行：hbase shell</li>
-<li>查看版本：version</li>
-<li>列出所有的 namespace：list_namespace </li>
-<li>查看有哪些表：list</li>
-<li>建表：create ‘表名’,’列族’, ‘列族’，示例 create ‘person’,’name’, ‘age’</li>
-<li>禁用表：disable ‘表名’</li>
-<li>删除表：drop ‘表名’</li>
-<li>插入记录：put  ‘<table name\>‘, ‘<row\>‘, ‘<column name\>‘, ‘<value\>‘</li>
+<li>进入 HBase 命令行：<code>hbase shell</code></li>
+<li>查看版本：<code>version</code></li>
+<li>列出所有的 namespace：<code>list_namespace</code></li>
+<li>查看有哪些表：<code>list</code></li>
+<li>建表：<code>create &#39;表名&#39;,&#39;列族&#39;, &#39;列族&#39;</code>，示例 <code>create &#39;person&#39;,&#39;name&#39;, &#39;age&#39;</code></li>
+<li>禁用表：<code>disable &#39;表名&#39;</code></li>
+<li>删除表：<code>drop &#39;表名&#39;</code></li>
+<li>插入记录：<code>put  &#39;&lt;table name&gt;&#39;, &#39;&lt;row&gt;&#39;, &#39;&lt;column name&gt;&#39;, &#39;&lt;value&gt;&#39;</code></li>
 <li>删除记录<ul>
-<li>删除某个属性的记录：delete ‘<table name\>‘,  ‘<row\>‘,  ‘<column name\>‘,  ‘<time stamp\>‘</li>
-<li>删除行：deleteall ‘<table_name\>‘, ‘<row\>‘</li>
+<li>删除某个属性的记录：<code>delete &#39;&lt;table name&gt;&#39;,  &#39;&lt;row&gt;&#39;,  &#39;&lt;column name&gt;&#39;,  &#39;&lt;time stamp&gt;&#39;</code></li>
+<li>删除行：<code>deleteall &#39;&lt;table_name&gt;&#39;, &#39;&lt;row&gt;&#39;</code></li>
 </ul>
 </li>
-<li>查询记录：get</li>
+<li>查询记录：<code>get</code></li>
 <li>修改记录：同插入</li>
-<li>扫描：查看 HTable 数据。使用 scan 命令可以得到表中的数据。scan ‘<table name\>‘</li>
-<li>统计行数：count</li>
-<li>清空表：truncate</li>
+<li>扫描：查看 HTable 数据。使用 scan 命令可以得到表中的数据。<code>scan &#39;&lt;table name\&gt;&#39;</code></li>
+<li>统计行数：<code>count</code></li>
+<li>清空表：<code>truncate</code></li>
 </ul>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html">Hadoop: Setting up a Single Node Cluster.</a></p>
 <p><a target="_blank" rel="noopener" href="https://hbase.apache.org/book.html#quickstart">Quick Start - Standalone HBase</a></p>
