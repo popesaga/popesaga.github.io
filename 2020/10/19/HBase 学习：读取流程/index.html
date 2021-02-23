@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月13日 晚上
+                  本文最后更新于：2021年2月23日 下午
                 
               </p>
             
@@ -500,7 +500,7 @@ scan.setFilter(filter);</code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201019155015.png" srcset="/img/loading.gif" alt="image-20201019155013730"></p>
 <p>每一个 Scanner 中都有一个 current 指针指向下一个即将要读取的 KeyValue，KeyValueHeap 中的 PriorityQueue 正是按照每一个 Scanner 的 current 所指向的 KeyValue 进行排序。</p>
 <p>第一次 next 请求，将会返回 ScannerA 中的 Row01:FamA:Col1，而后 ScannerA 的指针移动到下一个 KeyValue Row01:FamA:Col2，PriorityQueue 中的 Scanners 排序依然不变：</p>
-<p><img src="/Users/wangrui/Library/Application Support/typora-user-images/image-20201019155040971.png" srcset="/img/loading.gif" alt="image-20201019155040971"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20210223150924.png" srcset="/img/loading.gif" alt="image-20201019155040971"></p>
 <p>第二次 next 请求，依然返回 ScannerA 中的 Row01:FamA:Col2，ScannerA 的指针移动到下一个 KeyValue Row02:FamA:Col1，此时，PriorityQueue 中的 Scanners 排序发生了变化：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/popesaga/img/img/20201019155122.png" srcset="/img/loading.gif" alt="image-20201019155121803"></p>
 <p>下一次 next 请求，将会返回 ScannerB 中的 KeyValue，周而复始，直到某一个 Scanner 所读取的数据耗尽，该 Scanner 将会被 close，不再出现在上面的 PriorityQueue 中。</p>
