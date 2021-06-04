@@ -231,7 +231,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年11月13日 晚上
+                  本文最后更新于：2021年6月4日 下午
                 
               </p>
             
@@ -322,7 +322,7 @@
 <ul>
 <li>meta 表只存储 region 所在 rs，并不存储迁移过程中的中间状态。</li>
 <li>master 内存中存储了整个集群所有的 region 信息，可以获取任意一个 region 当前的状态以及存储在哪个 rs 上。<br>master 存储的 region 状态变更都是由 rs 通过 zk 通知给 master 的，因此 master 存储的 region 状态变更总是滞后于真正的 region 状态变更。</li>
-<li>zk 中存储的是临时性的状态转移信息，作为 master 和 rs 之间反馈 region 状态爱的通道。</li>
+<li>zk 中存储的是临时性的状态转移信息，作为 master 和 rs 之间反馈 region 状态的通道。</li>
 </ul>
 <p>只有 rs、master 和 zk 中 region 的状态都保持一致时，对应的 region 才处于正常的工作状态。当 region 状态在三个地方不能保持一致时，就会出现 region-in-transition(RIT)现象。</p>
 <h4 id="Assignment-Manager-V2"><a href="#Assignment-Manager-V2" class="headerlink" title="Assignment Manager V2"></a>Assignment Manager V2</h4><p>通过上面的分析发现，虽然迁移是一个轻量级操作，但是实现逻辑非常复杂。存在如下缺点：</p>
@@ -460,6 +460,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/05/17/2021%E6%8D%A2%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2021换工作总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
